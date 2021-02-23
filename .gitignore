@@ -3,9 +3,23 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+# Laravel files
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+
 # Node artifact files
 node_modules/
 dist/
+npm-debug.log
+yarn-error.log
 
 # Compiled Java class files
 *.class
