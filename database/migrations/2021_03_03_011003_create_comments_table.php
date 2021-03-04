@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             ->onDelete('cascade');
             $table->string('email');
             $table->ipAddress('ip');
-            $table->ipAdstring('body');
+            $table->string('body');
             $table->timestamps();
             $table->softDeletes();
         });
