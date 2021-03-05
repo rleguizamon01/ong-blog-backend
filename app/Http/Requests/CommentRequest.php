@@ -33,7 +33,7 @@ class CommentRequest extends FormRequest
         return [
             'required' => 'Debe completar el campo :attribute',
             'min' => 'El campo :attribute debe tener al menos :min caracteres',
-            'max' => 'El campo :attribute no bebe superar :max caracteres'
+            'max' => 'El campo :attribute no debe superar :max caracteres'
         ];
     }
 }
