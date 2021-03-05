@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Volunteer extends Model
 {
@@ -15,6 +16,6 @@ class Volunteer extends Model
         'email',
         'phone_number',
         'birthdate',
-        'body',
+        'body'
     ];
 }
