@@ -25,7 +25,15 @@ class CommentRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'body' => 'required|'
+            'body' => 'required|min:1|max:500'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'required' => 'Debe completar el campo :attribute',
+            'min' => 'El campo :attribute debe tener al menos :min caracteres',
+            'max' => 'El campo :attribute no bebe superar :max caracteres'
         ];
     }
 }
