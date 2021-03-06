@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SubscriberRequest extends FormRequest
 {
@@ -23,12 +24,25 @@ class SubscriberRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'first_name' => 'required|string|min:2|max:100',
-            'last_name' => 'required|string|min:2|max:100',
-            'email' => 'required|unique|email',
-            'ip' => 'required|ip',
-        ];
+        if ($this->getMethod() == 'POST') {
+            return [
+                'first_name' => 'required|string|min:2|max:100',
+                'last_name' => 'required|string|min:2|max:100',
+                'email' => 'required|email|unique:subscribers',
+                'ip' => 'required|ip',
+            ];
+        } else {
+            return [
+                'first_name' => 'required|string|min:2|max:100',
+                'last_name' => 'required|string|min:2|max:100',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('subscribers')->ignore(request()->route('subscriber')->id),
+                ],
+                'ip' => 'required|ip',
+            ];
+        }
     }
 
     /**
