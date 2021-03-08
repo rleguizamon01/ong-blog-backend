@@ -46,6 +46,22 @@ class SubscriberRequest extends FormRequest
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'first_name' => 'Nombre',
+            'last_name' => 'Apellido',
+            'email' => 'Email',
+            'ip' => 'IP',
+        ];
+    }
+
+
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -53,19 +69,13 @@ class SubscriberRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.required' => 'Debe ingresar su nombre',
-            'first_name.string' => 'El nombre debe ser una cadena de caracteres',
-            'first_name.min' => 'El nombre debe tener al menos :min caracteres',
-            'first_name.max' => 'El nombre debe tener como maximo :max caracteres',
-            'last_name.required' => 'Debe ingresar su apellido',
-            'last_name.string' => 'El apellido debe ser una cadena de caracteres',
-            'last_name.min' => 'El apellido debe tener al menos :min caracteres',
-            'last_name.max' => 'El apellido debe tener como maximo :max caracteres',
-            'email.required' => 'Debe ingresar su email',
+            'required' => 'Debe completar el campo :attribute',
+            'string' => 'El campo :attribute debe ser una cadena de caracteres',
+            'min' => 'El campo :attribute debe tener al menos :min caracteres',
+            'max' => 'El campo :attribute debe tener como maximo :max caracteres',
             'email.unique' => 'Ese email ya está siendo utilizado, por favor ingrese otro',
-            'email.email' => 'Debe ser un email valido',
-            'ip.required' => 'Debe ingresar una direccion ip',
-            'ip.ip' => 'Debe ser una ip valida',
+            'email.email' => 'Debe ingresar un email valido',
+            'ip.ip' => 'Debe ingresar una ip valida',
         ];
     }
 }
