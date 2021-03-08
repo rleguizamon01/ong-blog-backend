@@ -24,15 +24,22 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'integer',
-            'user_id' => 'integer',
             'category_id' => 'required',
             'title' => "required|string|min:1|max:100",
             'body' => "required|string|min:1",
-            "photo" => "image",
-            'category_id' => 'required'
+            "photo" => "image"
         ];
     }
+
+    public function attributes()
+{
+    return [
+        'category_id' => 'categoria',
+        'title' => 'título',
+        'body' => 'cuerpo',
+        'photo' => 'imagen'
+    ];
+}
 
     public function messages()
     {
