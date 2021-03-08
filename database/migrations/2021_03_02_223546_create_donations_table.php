@@ -20,8 +20,7 @@ class CreateDonationsTable extends Migration
             $table->string('status');
             $table->string('gateway_response');
             $table->timestamps();
-            $table->timestamp('deleted_at');
-
+            $table->softDeletes();
         });
     }
 
