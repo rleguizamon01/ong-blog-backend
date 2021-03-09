@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     public function index(){
-        return $comment = Comment::latest()->paginate();
+        return Comment::latest()->paginate();
     }
     public function show(Comment $comment)
     {
