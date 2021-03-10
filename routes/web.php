@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,5 +22,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/posts/{post}/comments', [\App\Http\Controllers\CommentController::class, 'index'])->name('comment.index');
-Route::get('/posts/{post}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'show'])->name('comment.show');
+Route::resource('comments', CommentController::class);
