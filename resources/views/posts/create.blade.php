@@ -26,14 +26,14 @@
         </div>
         <div class="form-group m-4">
             <label for="title">Titulo</label>
-            <input type="text" name="title" id="title" class="form-control @error('title') border-danger @enderror" aria-describedby="titleError" placeholder="Titulo del post" required>
+            <input type="text" name="title" id="title" class="form-control @error('title') border-danger @enderror" aria-describedby="titleError" placeholder="Titulo del post" value="{{old('title')}}" required>
             @error('title')
                 <small id="titleError" class="form-text text-danger">{{$message}}</small>
             @enderror
         </div>
         <div class="form-group m-4">
             <label for="body">Cuerpo del Post</label>
-            <textarea class="form-control @error('body') border-danger @enderror" aria-describedby="bodyError" name="body" id="body" rows="4"></textarea>       
+            <textarea class="form-control @error('body') border-danger @enderror" aria-describedby="bodyError" name="body" id="body" rows="4">{{old('body')}}</textarea>       
             @error('body')
                 <small id="bodyError" class="form-text text-danger">{{$message}}</small>
             @enderror
