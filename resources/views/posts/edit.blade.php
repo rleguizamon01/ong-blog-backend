@@ -14,6 +14,7 @@
         <div class="form-group m-4">
             <label for="category_id">Categoria</label>
             <select type="text" name="category_id" id="category_id" class="form-control  @error('category_id') border-danger @enderror" aria-describedby="category_idError"  required>
+            <option selected  value=0 > Seleccione una categoria </option>    
             @foreach($categories as $category)
                 <option {{ ( old('category_id') ?  old('category_id') : $post->category_id ) == $category->id ? "selected" : '' }} 
                     value="{{$category->id }}" > {{$category->name }}
