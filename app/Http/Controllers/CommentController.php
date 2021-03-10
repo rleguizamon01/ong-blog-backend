@@ -7,18 +7,79 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function index(Post $post){
-
-        return Comment::where('post_id','=',$post->id)->paginate();
-
-    }
-    public function show(Post $post,Comment $comment)
-    {   if ($post->id = $comment->post_id){
-        return $comment;
-
-    }else{
-        abort(404);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return Comment::paginate(5);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Comment $comment)
+    {
+        return Comment::with('posts')->find($comment->post_id);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Comment $comment)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Comment $comment)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Comment $comment)
+    {
+        //
     }
 }
