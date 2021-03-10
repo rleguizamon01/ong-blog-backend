@@ -24,10 +24,10 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required|integer|exist:categories',
+            'category_id' => 'required|integer|exist:categories,id',
             'title' => 'required|string|min:1|max:100',
             'body' => 'required|string|min:1',
-            'photo' => 'image'
+            'photo' => 'required|image'
         ];
     }
 
@@ -48,7 +48,8 @@ class PostRequest extends FormRequest
             'category_id.required' => 'Debe seleccionar una categoria',
             'min' => 'El campo :attribute debe tener al menos :min caracteres',
             'max' => 'El campo :attribute no bebe superar :max caracteres',
-            'image' => 'La imagen debe ser de formato .jpg, .png, etc'
+            'image' => 'La imagen debe ser de formato .jpg, .png, etc',
+            'image.requires' => 'Debe cargar una imagen para el post'
         ];
     }
 }
