@@ -20,3 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/posts/{post}/comments', [\App\Http\Controllers\CommentController::class, 'index'])->name('comment.index');
+Route::get('/posts/{post}/comments/{comment}', [\App\Http\Controllers\CommentController::class, 'show'])->name('comment.show');
