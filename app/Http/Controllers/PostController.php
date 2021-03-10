@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,7 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::paginate(10);
+        return $posts;
     }
 
     /**
@@ -35,9 +37,18 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $data = array_diff_key($request->all(), array_flip(['photo']));
+        $imageAux = $request->photo;
+        if ($imageAux){
+            $imageLongPath = time() . $imageAux->getClientOriginalName();
+            \Storage::disk('images')->put($imageLongPath, \File::get($imageAux));
+            $data['photo'] = $imageLongPath;
+        }
+        $data['user_id'] = auth()->user;
+        $post = Post::create($data);
+        return $post;
     }
 
     /**
@@ -48,7 +59,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post = Post::With('comments')->find($post->id);
+        return $post;
     }
 
     /**
