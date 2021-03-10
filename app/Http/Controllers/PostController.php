@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -46,7 +47,7 @@ class PostController extends Controller
             \Storage::disk('images')->put($imageLongPath, \File::get($imageAux));
             $data['photo'] = $imageLongPath;
         }
-        $data['user_id'] = auth()->user;
+        $data['user_id'] = Auth::id();
         $post = Post::create($data);
         return $post;
     }
