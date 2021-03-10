@@ -11,4 +11,8 @@ class VolunteerController extends Controller
 
         return view('volunteers.index', compact('volunteers'));
     }
+
+    public function show(Volunteer $volunteer){
+        return view('volunteers.show', compact('volunteer'));
+    }
 }
