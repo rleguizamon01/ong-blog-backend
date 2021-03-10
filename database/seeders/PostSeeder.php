@@ -20,6 +20,7 @@ class PostSeeder extends Seeder
         ->count(20)
         ->for(User::factory())
         ->has(Category::factory())
+        ->hasComments(2)
         ->create();
     }
 }
