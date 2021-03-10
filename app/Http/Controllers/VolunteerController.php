@@ -12,7 +12,33 @@ class VolunteerController extends Controller
         return view('volunteers.index', compact('volunteers'));
     }
 
+    public function create()
+    {
+        //
+    }
+
+    public function store(Request $request)
+    {
+        //
+    }
+
     public function show(Volunteer $volunteer){
         return view('volunteers.show', compact('volunteer'));
     }
+
+    public function edit($id)
+    {
+        //
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    public function destroy($id)
+    {
+        //
+    }
+
 }
