@@ -1,6 +1,6 @@
 
 
-<form method="POST" action="{{route('comments.update',$comment->id)}}">
+<form method="POST" action="{{route('comments.update',[$post->id,$comment->id])}}">
     @csrf
     @method('PATCH')
 
