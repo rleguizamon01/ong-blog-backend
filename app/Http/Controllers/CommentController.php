@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -12,9 +13,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post)
     {
-        return Comment::paginate(5);
+        return Comment::where('post_id','=',$post->id)->paginate();
     }
 
     /**
@@ -44,10 +45,15 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
-    {
-        return Comment::with('posts')->find($comment->post_id);
-    }
+    public function show(Post $post, Comment $comment)
+        {
+            if ($post->id == $comment->post_id) {
+                return $comment;
+
+            } else {
+                abort(404);
+            }
+        }
 
     /**
      * Show the form for editing the specified resource.
