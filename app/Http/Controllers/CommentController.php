@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -55,9 +56,9 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(Post $post, Comment $comment)
     {
-        return view('comments.edit', compact('comment'));
+        return view('comments.edit', compact('comment','post'));
     }
 
     /**
@@ -67,9 +68,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request,Post $post, Comment $comment)
     {
         $comment -> update($request->all());
+        $comment->ip = request()->ip();
         return $comment;
     }
 
