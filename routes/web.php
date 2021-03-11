@@ -22,4 +22,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('comments', CommentController::class);
+Route::resource('/posts/{post}/comments', CommentController::class);
