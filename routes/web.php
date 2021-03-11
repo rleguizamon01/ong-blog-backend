@@ -17,5 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('suscribers', 'App\Controller\Http\Controller\SuscriberController');
+Route::resource('suscribers', 'App\Controller\Http\Controller\SuscriberController::class');
 
