@@ -47,7 +47,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post = Post::With('comments')->find($post->id);
         return $post;
     }
 
