@@ -47,8 +47,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        
-
         $category = $category->load( ['posts'=> function ($query) {
         $query->orderBy('created_at', 'desc');
         }]);
