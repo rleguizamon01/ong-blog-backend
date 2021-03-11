@@ -49,7 +49,7 @@ class PostRequest extends FormRequest
             'min' => 'El campo :attribute debe tener al menos :min caracteres',
             'max' => 'El campo :attribute no bebe superar :max caracteres',
             'image' => 'La imagen debe ser de formato .jpg, .png, etc',
-            'image.requires' => 'Debe cargar una imagen para el post'
+            'image.required' => 'Debe cargar una imagen para el post'
         ];
     }
 }
