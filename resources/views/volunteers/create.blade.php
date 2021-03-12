@@ -57,7 +57,7 @@
   
     <div class="form-group">
         <label for="body">Contanos cómo conociste la ONG y por qué querés unirte al voluntariado</label>
-        <input type="text" class="form-control" id="body" name="body" value="{{ old('body') }}">
+        <textarea class="form-control" id="body" name="body"> {{ old('body') }} </textarea>
 
         @error('body')
             <div class="error"> {{ $errors->first('body') }} </div>
