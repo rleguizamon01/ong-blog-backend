@@ -22,3 +22,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('volunteers', App\Http\Controllers\VolunteerController::class);
+Route::resource('posts', App\Http\Controllers\PostController::class);
