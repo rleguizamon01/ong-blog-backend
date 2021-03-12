@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 class VolunteerController extends Controller
 {
     public function index(){
-        $volunteers = Volunteer::get()->paginate(10);
-
-        return view('volunteers.index', compact('volunteers'));
+        return view('volunteers.index', ['volunteers' => Volunteer::paginate(10)]);
     }
 
     public function create()
@@ -23,7 +21,7 @@ class VolunteerController extends Controller
     }
 
     public function show(Volunteer $volunteer){
-        return view('volunteers.show', compact('volunteer'));
+        return view('volunteers.show', ['volunteer' => $volunteer]);
     }
 
     public function edit($id)
