@@ -32,14 +32,14 @@ class PostRequest extends FormRequest
     }
 
     public function attributes()
-{
-    return [
-        'category_id' => 'categoria',
-        'title' => 'título',
-        'body' => 'cuerpo',
-        'photo' => 'imagen'
-    ];
-}
+    {
+        return [
+            'category_id' => 'categoria',
+            'title' => 'título',
+            'body' => 'cuerpo',
+            'photo' => 'imagen'
+        ];
+    }
 
     public function messages()
     {
