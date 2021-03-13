@@ -11,11 +11,13 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Post $post
+     * @param $post_id
      * @return \Illuminate\Http\Response
      */
     public function index(Post $post)
     {
-        return Comment::where('post_id','=',$post->id)->paginate();
+        return $post->load('comments');
     }
 
     /**
@@ -47,12 +49,7 @@ class CommentController extends Controller
      */
     public function show(Post $post, Comment $comment)
         {
-            if ($post->id == $comment->post_id) {
-                return $comment;
-
-            } else {
-                abort(404);
-            }
+            return Comment::find($comment->id);
         }
 
     /**
