@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 
@@ -28,3 +29,4 @@ Route::resource('categories', '\App\Http\Controllers\CategoryController', [
     'only' => ['index', 'show']
 ]);
 Route::resource('subscribers', App\Http\Controller\SuscriberController::class);
+Route::resource('/posts/{post}/comments', CommentController::class);
