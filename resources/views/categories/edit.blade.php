@@ -4,24 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Blog Ong</title>
 </head>
 <body>
-    <form method='POST' action="{{ route('categories.update', ['category' => $category]) }}" enctype="multipart/form-data">
+    <form method='POST' action="{{ route('categories.update', ['category' => $category]) }}" >
     @method('PATCH')
     @csrf
-        <div class="form-group m-4">
+        <div >
             <label for="name">Nombre Categoria</label>
             <span title="El nombre de la categoria debe tener entre 1 y 50 caracteres de largo">
-            <input type="text" name="name" id="name" class="form-control @error('name') border-danger @enderror" aria-describedby="nameError" minlength="1" maxlength="50" placeholder="Nombre de la categoria" value="{{old('name') ? old('name') : $category->name }}" required>
-            </span> 
+            <input type="text" name="name" id="name" aria-describedby="nameError" minlength="1" maxlength="50" placeholder="Nombre de la categoria" value="{{old('name') ? old('name') : $category->name }}" required>
+            </span>
             @error('name')
-                <small id="nameError" class="form-text text-danger">{{$message}}</small>
+                <small id="nameError">{{$message}}</small>
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" >Enviar</button>
     </form>
 
 </body>
