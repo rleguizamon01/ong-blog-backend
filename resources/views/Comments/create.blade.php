@@ -5,9 +5,7 @@
         <input type="text" name="email"
                value="{{ old('email') }}">
 
-        @error('email')
         <p>{{ $errors->first('email') }}</p>
-        @enderror
 
         <br>
 
@@ -15,9 +13,9 @@
         <textarea name="body" id="body" cols="30" rows="10">
             {{ old('body') }}
             </textarea>
-        @error('body')
+
         <p>{{ $errors->first('body') }}</p>
-        @enderror
+
         <br>
 
         <button type="submit">Send</button>
