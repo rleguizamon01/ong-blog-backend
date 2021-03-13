@@ -12,11 +12,9 @@
     @csrf
         <div >
             <label for="name">Nombre Categoria</label>
-            <span title="El nombre de la categoria debe tener entre 1 y 50 caracteres de largo">
             <input type="text" name="name" id="name" aria-describedby="nameError" minlength="1" maxlength="50" placeholder="Nombre de la categoria" value="{{old('name') ? old('name') : $category->name }}" required>
-            </span>
             @error('name')
-                <small id="nameError">{{$message}}</small>
+                <div id="nameError">{{$message}}</div>
             @enderror
         </div>
 
