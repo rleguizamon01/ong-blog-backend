@@ -15,7 +15,7 @@
             <select type="text" name="category_id" id="category_id" aria-describedby="category_idError"  required>
             <option selected  value=0 > Seleccione una categoria </option>
             @foreach($categories as $category)
-                <option {{ ( old('category_id') ?  old('category_id') : $post->category_id ) == $category->id ? "selected" : '' }}
+                <option {{ old('category_id', $post->category_id ) == $category->id ? "selected" : '' }}
                     value="{{$category->id }}" > {{$category->name }}
                 </option>
             @endforeach
@@ -26,14 +26,14 @@
         </div>
         <div>
             <label for="title">Titulo</label>
-            <input type="text" name="title" id="title" aria-describedby="titleError" placeholder="Titulo del post" value="{{old('title') ? old('title') : $post->title }}" required>
+            <input type="text" name="title" id="title" aria-describedby="titleError" placeholder="Titulo del post" value="{{old('title', $post->title)}}" required>
             @error('title')
                 <div id="titleError">{{$message}}</div>
             @enderror
         </div>
         <div>
             <label for="body">Cuerpo del Post</label>
-            <textarea aria-describedby="bodyError" name="body" id="body" rows="4">{{old('body') ? old('body') : $post->body }}</textarea>
+            <textarea aria-describedby="bodyError" name="body" id="body" rows="4">{{old('body', $post->body)}}</textarea>
             @error('body')
                 <div id="bodyError">{{$message}}</div>
             @enderror
