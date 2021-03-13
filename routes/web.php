@@ -27,3 +27,4 @@ Route::resource('posts', App\Http\Controllers\PostController::class);
 Route::resource('categories', '\App\Http\Controllers\CategoryController', [
     'only' => ['index', 'show']
 ]);
+Route::resource('subscribers', App\Http\Controller\SuscriberController::class);
