@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Subscriber;
 
 class SuscriberController extends Controller
 {
@@ -13,8 +14,8 @@ class SuscriberController extends Controller
      */
     public function index()
     {
-        $suscribers = Suscriber::paginate(10);
-        return ($suscribers);
+        $subscribers = Subscriber::paginate(10);
+        return ($subscribers);
     }
 
     /**
@@ -44,10 +45,9 @@ class SuscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Subscriber $subscriber)
     {
-        $suscriber = Suscriber::findorfail($id);
-        return ($suscriber)
+        return $subscriber;
     }
 
     /**
