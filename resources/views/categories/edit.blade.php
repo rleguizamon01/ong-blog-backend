@@ -12,7 +12,7 @@
     @csrf
         <div >
             <label for="name">Nombre Categoria</label>
-            <input type="text" name="name" id="name" aria-describedby="nameError" minlength="1" maxlength="50" placeholder="Nombre de la categoria" value="{{old('name') ? old('name') : $category->name }}" required>
+            <input type="text" name="name" id="name" aria-describedby="nameError" minlength="1" maxlength="50" placeholder="Nombre de la categoria" value="{{old('name', $category->name)}}" required>
             @error('name')
                 <div id="nameError">{{$message}}</div>
             @enderror
