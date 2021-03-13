@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('volunteers', App\Http\Controllers\VolunteerController::class);
 Route::resource('posts', App\Http\Controllers\PostController::class);
+Route::resource('categories', '\App\Http\Controllers\CategoryController', [
+    'only' => ['index', 'show']
+]);
