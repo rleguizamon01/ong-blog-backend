@@ -1,4 +1,4 @@
-<form method="post">
+<form method="post" action="{{route('subscribers.store')}}">
     @csrf
     <div class="form-group">
             <label for="first_name">Nombre</label>
