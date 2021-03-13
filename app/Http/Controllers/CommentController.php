@@ -49,7 +49,7 @@ class CommentController extends Controller
      */
     public function show(Post $post, Comment $comment)
         {
-            return Comment::find($comment->id);
+            return $comment;
         }
 
     /**
