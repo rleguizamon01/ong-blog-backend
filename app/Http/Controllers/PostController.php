@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use App\Http\Requests\PostRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -28,8 +27,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('id','name')->orderBy('name','ASC')->get();
-        return view('posts.create',compact('categories'));
+        $categories = Category::select('id', 'name')->orderBy('name', 'ASC')->get();
+        return view('posts.create', ['categories' => $categories]);
     }
 
     /**
@@ -40,14 +39,10 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $data = array_diff_key($request->all(), array_flip(['photo']));
-        $imageAux = $request->photo;
-        if ($imageAux){
-            $imageLongPath = time() . $imageAux->getClientOriginalName();
-            \Storage::disk('images')->put($imageLongPath, \File::get($imageAux));
-            $data['photo'] = $imageLongPath;
+        if ($request->hasFile('photo')) {
+            $request->file('photo')->store('images');
         }
-        $data['user_id'] = Auth::id();
+        $data = $request->merge(['user_id' => Auth::id()]);
         $post = Post::create($data);
         return $post;
     }
@@ -60,7 +55,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post = Post::With('comments')->find($post->id);
+        $post = $post->load(['comments' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }]);
         return $post;
     }
 
@@ -72,8 +69,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $categories = Category::select('id','name')->orderBy('name','ASC')->get();
-        return view('posts.edit',compact('post', 'categories'));
+        $categories = Category::select('id', 'name')->orderBy('name', 'ASC')->get();
+        return view('posts.edit', ['post' => $post, 'categories' => $categories]);
     }
 
     /**
@@ -85,15 +82,11 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
-        $data = array_diff_key($request->all(), array_flip(['photo']));
-        $imageAux = $request->photo;
-        if ($imageAux){
-            $imageLongPath = time() . $imageAux->getClientOriginalName();
-            \Storage::disk('images')->put($imageLongPath, \File::get($imageAux));
-            $data['photo'] = $imageLongPath;
+        if ($request->hasFile('photo')) {
+            $request->file('photo')->store('images');
         }
-        $data['user_id'] = Auth::id();
-        $post -> update($data);
+        $data = $request->merge(['user_id' => Auth::id()]);
+        $post->update($data->all());
         return $post;
     }
 
