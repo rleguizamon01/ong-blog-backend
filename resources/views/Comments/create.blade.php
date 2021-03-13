@@ -4,19 +4,17 @@
         <label for="email">Email: </label>
         <input type="text" name="email"
                value="{{ old('email') }}">
-
+        @error('body')
         <p>{{ $errors->first('email') }}</p>
-
-        <br>
+        @enderror
 
         <label for="body">Body:</label>
         <textarea name="body" id="body" cols="30" rows="10">
             {{ old('body') }}
             </textarea>
-
+        @error('body')
         <p>{{ $errors->first('body') }}</p>
-
-        <br>
+        @enderror
 
         <button type="submit">Send</button>
     </form>
