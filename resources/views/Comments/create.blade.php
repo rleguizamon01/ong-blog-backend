@@ -3,7 +3,6 @@
         @csrf
         <label for="email">Email: </label>
         <input type="text" name="email"
-               @error('email') class="danger" @enderror
                value="{{ old('email') }}">
 
         @error('email')
@@ -13,7 +12,7 @@
         <br>
 
         <label for="body">Body:</label>
-        <textarea @error('body') @enderror name="body" id="body" cols="30" rows="10">
+        <textarea name="body" id="body" cols="30" rows="10">
             {{ old('body') }}
             </textarea>
         @error('body')
