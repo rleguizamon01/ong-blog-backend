@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -29,7 +28,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::select('id', 'name')->orderBy('name', 'ASC')->get();
-        return view('posts.create', compact('categories'));
+        return view('posts.create', ['categories' => $categories]);
     }
 
     /**
@@ -75,7 +74,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::select('id', 'name')->orderBy('name', 'ASC')->get();
+        return view('posts.edit', ['post' => $post, 'categories' => $categories]);
     }
 
     /**
@@ -85,9 +85,14 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        if ($request->hasFile('photo')) {
+            $request->file('photo')->store('images');
+        }
+        $data = $request->merge(['user_id' => Auth::id()]);
+        $post->update($data->all());
+        return $post;
     }
 
     /**

@@ -25,7 +25,7 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'category_id' => Category::factory(),
+            'category_id' => Category::all()->random()->id,
             'title' => $this->faker->sentence(),
             'body' => $this->faker->text(),
             'photo' => $this->faker->imageUrl(),
