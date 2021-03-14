@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -31,7 +32,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,47 +43,49 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
     {
-        $category = $category->load( ['posts'=> function ($query) {
-        $query->orderBy('created_at', 'desc');
+        $category = $category->load(['posts' => function ($query) {
+            $query->orderBy('created_at', 'desc');
         }]);
+
         return $category;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('categories.edit', ['category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->all());
+        return $category;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         //
     }
