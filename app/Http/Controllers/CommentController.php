@@ -28,7 +28,7 @@ class CommentController extends Controller
      */
     public function create(Post $post)
     {
-        return view('comments.create', compact('post'));
+        return view('comments.create', ['post' => $post]);
     }
 
     /**
@@ -67,9 +67,12 @@ class CommentController extends Controller
      * @param \App\Models\Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(Post $post, Comment $comment)
     {
-        //
+        return view('comments.edit', [
+            'post' => $post,
+            'comment' => $comment,
+        ]);
     }
 
     /**
@@ -79,9 +82,11 @@ class CommentController extends Controller
      * @param \App\Models\Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Post $post, Comment $comment)
     {
-        //
+        $comment->update($request->all());
+        $comment->ip = request()->ip();
+        return $comment;
     }
 
     /**
