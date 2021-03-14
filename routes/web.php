@@ -25,8 +25,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('volunteers', App\Http\Controllers\VolunteerController::class);
 Route::resource('posts', App\Http\Controllers\PostController::class);
-Route::resource('categories', '\App\Http\Controllers\CategoryController', [
-    'only' => ['index', 'show']
-]);
 Route::resource('subscribers', App\Http\Controller\SuscriberController::class);
 Route::resource('/posts/{post}/comments', CommentController::class);
+Route::resource('categories', App\Http\Controllers\CategoryController::class);
