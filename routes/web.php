@@ -30,5 +30,5 @@ Route::resource('/posts/{post}/comments', CommentController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
 
 Route::get('/back', function () {
-    return view('masterBack');
+    return view('layouts.masterBack');
 });
