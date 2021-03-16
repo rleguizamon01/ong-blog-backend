@@ -13,14 +13,11 @@
      <link href="{{ asset('css/style.default.css') }}" rel="stylesheet">
     <!-- Custome CSS-->
      <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    <!-- Font Awesome CSS-->
-    {{-- <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css"> --}}
     <!-- Custom icon font-->
-    <link rel="stylesheet" href="css/fontastic.css">
+    <link rel="stylesheet" href="{{ asset('css/fontastic.css') }}">
     <!-- Google fonts - Open Sans-->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-    <!-- Favicon-->
-    {{-- <link rel="shortcut icon" href="favicon.png"> --}}
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -33,7 +30,7 @@
         <div class="container">
           <!-- Navbar Brand -->
           <div class="navbar-header d-flex align-items-center justify-content-between">
-            <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">Bootstrap Blog</a>
+            <!-- Navbar Brand --><a href="{{ url('/') }}" class="navbar-brand">{{ config('app.name', 'Laravel') }}</a>
             <!-- Toggle Button-->
             <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
           </div>
