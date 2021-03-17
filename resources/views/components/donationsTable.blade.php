@@ -27,11 +27,8 @@
                 <td>
                     {{$donation->created_at}}
                 </td>
-                <td>
-                    <form class="d-inline-flex" action="{{route('donations.show', ['donation'=>$donation])}}" method="get">
-                        @csrf
-                        <button type="submit" class="btn btn-primary">Ver detalle</button>
-                    </form>
+                <td>    
+                    <a class="btn btn-primary" href="{{route('donations.show', ['donation'=>$donation])}}" role="button">Ver detalle</a>
                 </td>
             </tr>
             @endforeach
