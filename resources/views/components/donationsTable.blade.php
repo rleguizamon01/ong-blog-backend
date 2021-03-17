@@ -30,7 +30,7 @@
                 <td>
                     <form class="d-inline-flex" action="{{route('donations.show', ['donation'=>$donation])}}" method="get">
                         @csrf
-                        <button type="button" class="btn btn-primary">Ver detalle</button>
+                        <button type="submit" class="btn btn-primary">Ver detalle</button>
                     </form>
                 </td>
             </tr>
