@@ -28,11 +28,9 @@
                     {{$donation->created_at}}
                 </td>
                 <td>
-                    <form class="d-inline-flex" action="{{route('donations.destroy', ['donation'=>$donation])}}" method="POST">
+                    <form class="d-inline-flex" action="{{route('donations.show', ['donation'=>$donation])}}" method="get">
                         @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger fa fa-trash btn-eliminar">
-                        </button>
+                        <button type="button" class="btn btn-primary">Ver detalle</button>
                     </form>
                 </td>
             </tr>
