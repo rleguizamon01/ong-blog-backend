@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <!-- Custom icon font-->
     <link rel="stylesheet" href="/css/fontastic.css">
     <!-- Google fonts - Open Sans-->
@@ -58,7 +58,16 @@
                     <h6 class="text-white">ONG TEAM</h6>
                 </div>
                 <div class="contact-details">
-                    <p>Alkemy</p>
+                    <p>53 Broadway, Broklyn, NY 11249</p>
+                    <p>Phone: (020) 123 456 789</p>
+                    <p>Email: Info@Company.com</p>
+                    <ul class="social-menu">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-behance"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                    </ul>
                 </div>
             </div>
             <div class="col-md-4">
