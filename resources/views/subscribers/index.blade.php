@@ -21,9 +21,14 @@
                                     {{ $subscriber->created_at->format('d M Y') }}
                                 </div>
                             </div>
-                            <p class="card-text"></p>
-                        <!-- Subscriber details -->
-                            <a href="{{ route('subscribers.show', $subscriber->id) }}" class="btn btn-primary">Detalles</a>
+                            <!-- Subscriber details, edit and delete -->
+                            <form method="POST" action="{{ route('subscribers.destroy', $subscriber->id) }}">                    
+                                @METHOD('delete')
+                                @csrf
+                                <a href="{{ route('subscribers.show', $subscriber->id) }}" class="btn btn-primary">Detalles</a>
+                                <a href="{{ route('subscribers.edit', $subscriber->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                <button type="submit" class="btn btn-danger"> <i class="fa fa-trash"></i> </button>
+                            </form>
                         </div>
                     </div>
                 </div>
