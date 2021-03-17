@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group m-4">
                     <label for="body">Cuerpo del Post</label>
-                    <textarea class="form-control @error('body') border-danger @enderror" aria-describedby="bodyError" name="body" id="body" rows="4">{{old('body', $post->body)}}</textarea>
+                    <textarea class="form-control @error('body') border-danger @enderror" aria-describedby="bodyError" name="body" id="body" rows="6">{{old('body', $post->body)}}</textarea>
                     @error('body')
                         <div id="bodyError" class="form-text text-danger">{{$message}}</div>
                     @enderror
@@ -47,3 +47,4 @@
         </div>
     </div>
 </div>
+@endsection
