@@ -1,1 +1,41 @@
-/* your styles go here */
+/*
+* ==========================================================
+*     BACK
+* ==========================================================
+*/
+/*
+* ==========================================================
+*     BOARD SECTION
+* ==========================================================
+*/
+
+section.board {
+    padding: 20px 20px;
+}
+section.board .container {
+    padding: 20px 20px;
+    background-color: #f8fafc;
+    min-height: 85vh;
+}
+
+/* Featured Posts Section Media Query ------------------------------------- */
+@media (max-width: 991px) {
+    section.board {
+        padding: 0px 0px;
+    }
+    section.board .container {
+        padding: 0px 0px;
+    }
+}
+
+@media (max-width: 575px) {
+    section.board .container {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 350px) {
+    section.board .container {
+        font-size: 0.75em;
+    }
+}
