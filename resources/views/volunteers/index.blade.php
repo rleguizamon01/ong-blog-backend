@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                         <!-- Volunteer details -->
-                            <a href="route('volunteers.show', $volunteer->id" class="btn btn-primary">Detalles</a>
+                            <a href="{{ route('volunteers.show', $volunteer->id) }}" class="btn btn-primary">Detalles</a>
                         </div>
                     </div>
                 </div>
