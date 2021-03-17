@@ -9,9 +9,9 @@
             @foreach($posts as $post)
                 <div class="card col-xl-6 border-0 mb-5 pr-5 pl-5">    
                     <div class="card-body">
-                        <!-- Image -->
+                        <!-- Photo -->
                         <a href="{{ route('posts.show', $post->id) }}"> 
-                            <img src="https://via.placeholder.com/253x169" class="card-img-top mb-3"> 
+                            <img src="{{ asset('images/'.$post->photo) }}" class="card-img-top mb-3"> 
                         </a>
                         <!-- Title -->
                         <a href="{{ route('posts.show', $post->id) }}" class="text-decoration-none"> 
