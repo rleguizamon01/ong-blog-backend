@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VolunteerRequest;
 use Illuminate\Http\Request;
 use App\Models\Volunteer;
 
@@ -13,12 +14,15 @@ class VolunteerController extends Controller
 
     public function create()
     {
-        //
+        return view('volunteers.create');
     }
 
-    public function store(Request $request)
+    public function store(VolunteerRequest $request)
     {
-        //
+        $volunteer = new Volunteer;
+        $volunteer->create($request->all());
+
+        return redirect()->back()->withSuccess('Inscripto como voluntario exitosamente');
     }
 
     public function show(Volunteer $volunteer){
@@ -35,9 +39,9 @@ class VolunteerController extends Controller
         //
     }
 
-    public function destroy($id)
-    {
-        //
+    public function destroy(Volunteer $volunteer){
+        $volunteer->delete();
+        return redirect()->back();
     }
 
 }
