@@ -33,7 +33,7 @@ Route::get('/back', function () {
     return view('layouts.masterBack');
 });
 
-Route::prefix('admin')->name('admin.')->group( function(){
+Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
 
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class, [
         'except' => ['create', 'store']
