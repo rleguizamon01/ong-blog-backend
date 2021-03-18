@@ -1,3 +1,9 @@
+@extends('layout')
+
+@section('title', 'Voluntarios')
+
+@section('content')
+
 <form action="{{ route('volunteers.store') }}" method="POST">
     @csrf
 

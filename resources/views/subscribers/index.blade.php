@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Subscribers')
+@section('title', 'Suscriptores')
 
 @section('content')
 
