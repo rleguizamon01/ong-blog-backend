@@ -28,3 +28,5 @@ Route::resource('posts', App\Http\Controllers\PostController::class);
 Route::resource('subscribers', App\Http\Controllers\SuscriberController::class);
 Route::resource('/posts/{post}/comments', CommentController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
+
+Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::class, 'index'])->name('categories.posts.index');
