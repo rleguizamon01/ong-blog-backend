@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <!-- Photo -->
                         <a href="{{ route('posts.show', $post->id) }}"> 
-                            <img src="{{ asset('images/'.$post->photo) }}" class="card-img-top mb-3"> 
+                            <img src="{{ $post->photo }}" class="card-img-top mb-3"> 
                         </a>
                         <!-- Title -->
                         <a href="{{ route('posts.show', $post->id) }}" class="text-decoration-none"> 
