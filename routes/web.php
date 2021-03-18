@@ -29,6 +29,4 @@ Route::resource('subscribers', App\Http\Controllers\SuscriberController::class);
 Route::resource('/posts/{post}/comments', CommentController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
 
-Route::get('/back', function () {
-    return view('layouts.masterBack');
-});
+Route::get('/approved/{post}', [App\Http\Controllers\PostApprovalController::class, 'publish'])->name('posts.publish');
