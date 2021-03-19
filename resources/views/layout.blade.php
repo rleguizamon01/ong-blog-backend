@@ -22,7 +22,7 @@
     <!--Script-->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-</head>
+    </head>
 <body>
 <header class="header">
     <!-- Main Navbar-->
@@ -40,6 +40,8 @@
                     <li class="nav-item"><a href="/" class="nav-link active ">Home</a>
                     </li>
                     <li class="nav-item"><a href="/posts" class="nav-link ">Blog</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('donations.create') }}" class="nav-link ">Donar</a>
                     </li>
                 </ul>
             </div>
