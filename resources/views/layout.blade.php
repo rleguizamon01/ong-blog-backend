@@ -37,11 +37,16 @@
             <!-- Navbar Menu -->
             <div id="navbarcollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="/" class="nav-link active ">Home</a>
+                    <li class="nav-item"><a href="/" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item"><a href="/posts" class="nav-link ">Blog</a>
                     </li>
-                    <li class="nav-item"><a href="{{ route('donations.create') }}" class="nav-link ">Donar</a>
+                    <li class="nav-item">
+                        <a 
+                        href="{{ route('donations.create') }}" 
+                        class="nav-link {{ Route::is('donations.create') ? 'active' : '' }}">
+                            Donar
+                        </a>
                     </li>
                 </ul>
             </div>
