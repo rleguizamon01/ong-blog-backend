@@ -18,7 +18,7 @@ class SubscriberConfirmation extends Mailable
      *
      * @return void
      */
-    public function __construct($subscriber)
+    public function __construct(Subscriber $subscriber)
     {
         $this->subscriber = $subscriber;
     }
@@ -33,7 +33,6 @@ class SubscriberConfirmation extends Mailable
         return $this->markdown('emails.subscribers.confirm')
             ->with([
                 'url' => 'localhost:8000',
-                'first_name' => $this->subscriber['first_name'],
             ]);
     }
 }
