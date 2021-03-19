@@ -28,6 +28,7 @@ Route::resource('posts', App\Http\Controllers\PostController::class);
 Route::resource('subscribers', App\Http\Controllers\SuscriberController::class);
 Route::resource('/posts/{post}/comments', CommentController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
+Route::resource('donations', App\Http\Controllers\DonationController::class);
 
 Route::get('/back', function () {
     return view('layouts.masterBack');
