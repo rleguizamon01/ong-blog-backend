@@ -8,11 +8,11 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Donation;
 
-class DonationConfirm extends Mailable
+class DonationConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $donation;
+    public $donation;
 
     /**
      * Create a new message instance.
@@ -31,6 +31,7 @@ class DonationConfirm extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.donations.confirm');
+        return $this->markdown('emails.donations.confirm')
+        ->with(['url' => route('home')]);
     }
 }
