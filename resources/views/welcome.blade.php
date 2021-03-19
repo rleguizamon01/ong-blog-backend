@@ -38,20 +38,7 @@
     </section>
     <br>
     <!-- Newsletter Section-->
-    <section class="newsletter no-padding-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Subscribe to Newsletter</h2>
-                    <p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <div class="col-md-8">
-                    <div class="form-holder">
-                        <!--El boton lleva a la ruta create.suscriber-->
-                       <a href="/" class="submit">Suscribe</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   @component('components.formCreateSubscriber')
+   @endcomponent
+    <br>
 @endsection
