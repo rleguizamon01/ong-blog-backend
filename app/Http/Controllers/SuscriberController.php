@@ -14,8 +14,7 @@ class SuscriberController extends Controller
      */
     public function index()
     {
-        $subscribers = Subscriber::paginate(10);
-        return ($subscribers);
+        return view('subscribers.index', ['subscribers' => Subscriber::paginate(10)]);
     }
 
     /**

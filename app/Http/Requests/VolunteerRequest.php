@@ -27,9 +27,21 @@ class VolunteerRequest extends FormRequest
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
             'email' => 'required|email|unique:volunteers',
-            'phone_number' => 'required|numeric|max:15',
+            'phone_number' => 'required|numeric',
             'birthdate' => 'required|date|before:today',
             'body' => 'required|max:500|string',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'first_name' => 'nombre',
+            'last_name' => 'apellido',
+            'email' => 'email',
+            'phone_number' => 'número de teléfono',
+            'birthdate' => 'fecha de nacimiento',
+            'body' => 'texto',
         ];
     }
 
@@ -42,7 +54,7 @@ class VolunteerRequest extends FormRequest
             'string' => 'El campo :attribute debe ser una cadena de caracteres',
             'numeric' => 'El campo :attribute debe ser un número',
             'date' => 'El campo :attribute debe ser una fecha',
-            'before' => 'La fecha debe ser anterior a hoy',
+            'before' => 'La fecha debe ser anterior al día de hoy',
             'unique' => 'El :attribute ya se encuentra registrado'
         ];
    }
