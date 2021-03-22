@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VolunteerConfirmation;
+use App\Http\Requests\VolunteerRequest;
 use Illuminate\Http\Request;
 use App\Models\Volunteer;
 
@@ -15,7 +16,7 @@ class VolunteerController extends Controller
 
     public function create()
     {
-        //
+        return view('volunteers.create');
     }
 
     public function store(VolunteerRequest $request)
@@ -43,9 +44,9 @@ class VolunteerController extends Controller
         //
     }
 
-    public function destroy($id)
-    {
-        //
+    public function destroy(Volunteer $volunteer){
+        $volunteer->delete();
+        return redirect()->back();
     }
 
 }

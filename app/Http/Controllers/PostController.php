@@ -14,9 +14,14 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category)
     {
-        return view('posts.index', ['posts' => Post::with('category')->paginate(10)]);
+        if ($category->exists) {
+            $posts = Post::where('category_id', $category->id)->with('category', 'user')->latest()->paginate(10);
+        } else {
+            $posts = Post::with('category', 'user')->latest()->paginate(10);
+        }
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -46,7 +51,7 @@ class PostController extends Controller
             $request->file('photo')->store('images');
         }
 
-        $post = Post::create($data);
+        $post = Post::create($data->all());
 
         return $post;
     }
