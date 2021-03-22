@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS-->
      <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+      <!-- Font Awesome CSS-->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <!-- Template CSS-->
      <link href="{{ asset('css/style.default.css') }}" rel="stylesheet">
     <!-- Custome CSS-->
@@ -37,19 +39,19 @@
           <!-- Navbar Menu -->
           <div id="navbarcollapse" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href="{{ route('home') }}" class="nav-link active ">Home</a>
+              <li class="nav-item"><a href="{{ route('home') }}" class="nav-link active ">Inicio</a>
               </li>
               <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link ">Posts</a>
               </li>
-              <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link ">Categories</a>
+              <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link ">Categorias</a>
               </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Comments</a>
+              <li class="nav-item"><a href="#" class="nav-link ">Comentarios</a>
               </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Volunteers</a>
+              <li class="nav-item"><a href="#" class="nav-link ">Voluntarios</a>
               </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Donations</a>
+              <li class="nav-item"><a href="#" class="nav-link ">Donaciones</a>
               </li>
-              <li class="nav-item"><a href="{{ route('subscribers.index') }}" class="nav-link ">Subscribers</a>
+              <li class="nav-item"><a href="{{ route('subscribers.index') }}" class="nav-link ">Suscriptores</a>
               </li>
             </ul>
           </div>
