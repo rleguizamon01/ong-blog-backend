@@ -58,3 +58,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
         'except' => ['create', 'store', 'destroy']
     ]);
 });
+
+Route::get('/approved/{post}', [App\Http\Controllers\PostApprovalController::class, 'publish'])->name('posts.publish');
