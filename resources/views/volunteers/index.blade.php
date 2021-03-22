@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Volunteers')
+@section('title', 'Voluntarios')
 
 @section('content')
 
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mb-4">
             {{ $volunteers->links('pagination::bootstrap-4') }}
     </div>
 

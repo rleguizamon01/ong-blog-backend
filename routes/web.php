@@ -28,5 +28,33 @@ Route::resource('posts', App\Http\Controllers\PostController::class);
 Route::resource('subscribers', App\Http\Controllers\SuscriberController::class);
 Route::resource('/posts/{post}/comments', CommentController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
+Route::resource('donations', App\Http\Controllers\DonationController::class);
 
 Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::class, 'index'])->name('categories.posts.index');
+
+Route::get('/back', function () {
+    return view('layouts.masterBack');
+});
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
+
+    Route::resource('posts', App\Http\Controllers\Admin\PostController::class, [
+        'except' => ['create', 'store']
+    ]);
+
+    Route::resource('subscribers', App\Http\Controllers\Admin\PostController::class, [
+        'except' => ['create', 'store']
+    ]);
+
+    Route::resource('volunteers', App\Http\Controllers\Admin\VolunteersController::class, [
+        'except' => ['create', 'store']
+    ]);
+
+    Route::resource('comments', App\Http\Controllers\Admin\CommentController::class, [
+        'except' => ['create', 'store']
+    ]);
+
+    Route::resource('donations', App\Http\Controllers\Admin\DonationController::class, [
+        'except' => ['create', 'store', 'destroy']
+    ]);
+});

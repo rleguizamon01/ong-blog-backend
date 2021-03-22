@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mb-4">
             {{ $posts->links('pagination::bootstrap-4') }}
     </div>
 

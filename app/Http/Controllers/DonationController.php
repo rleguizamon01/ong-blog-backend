@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Donation;
 use Illuminate\Http\Request;
-use App\Models\Subscriber;
 
-class SuscriberController extends Controller
+class DonationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class SuscriberController extends Controller
      */
     public function index()
     {
-        return view('subscribers.index', ['subscribers' => Subscriber::paginate(10)]);
+        //
     }
 
     /**
@@ -24,7 +24,7 @@ class SuscriberController extends Controller
      */
     public function create()
     {
-        //
+        return view('donations.create');
     }
 
     /**
@@ -41,21 +41,21 @@ class SuscriberController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function show(Subscriber $subscriber)
+    public function show(Donation $donation)
     {
-        return $subscriber;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Donation $donation)
     {
         //
     }
@@ -64,10 +64,10 @@ class SuscriberController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Donation $donation)
     {
         //
     }
@@ -75,10 +75,10 @@ class SuscriberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Donation $donation)
     {
         //
     }
