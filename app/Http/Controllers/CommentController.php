@@ -6,7 +6,6 @@ use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -70,7 +69,7 @@ class CommentController extends Controller
      */
     public function edit(Post $post, Comment $comment)
     {
-        Gate::authorize('update-comment', $comment);
+        $this->authorize('update-comment', $comment);
         return view('comments.edit', [
             'post' => $post,
             'comment' => $comment,
@@ -86,7 +85,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, Post $post, Comment $comment)
     {
-        Gate::authorize('update-comment', $comment);
+        $this->authorize('update-comment', $comment);
         $comment->update($request->all());
         $comment->ip = request()->ip();
         return $comment;
@@ -100,7 +99,7 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        Gate::authorize('delete-comment', $comment);
+        $this->authorize('delete-comment', $comment);
         $comment->delete();
         return back();
     }
