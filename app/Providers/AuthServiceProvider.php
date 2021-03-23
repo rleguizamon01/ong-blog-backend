@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Volunteer;
+use App\Policies\CommentPolicy;
+use App\Policies\VolunteerPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use App\Policies\CommentPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\Comment' => 'App\Policies\CommentPolicy',
+        Volunteer::class => VolunteerPolicy::class,
     ];
 
     /**
