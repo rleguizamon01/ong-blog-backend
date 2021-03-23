@@ -69,6 +69,7 @@ class CommentController extends Controller
      */
     public function edit(Post $post, Comment $comment)
     {
+        $this->authorize('update-comment', $comment);
         return view('comments.edit', [
             'post' => $post,
             'comment' => $comment,
@@ -84,6 +85,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, Post $post, Comment $comment)
     {
+        $this->authorize('update-comment', $comment);
         $comment->update($request->all());
         $comment->ip = request()->ip();
         return $comment;
@@ -97,6 +99,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $this->authorize('delete-comment', $comment);
+        $comment->delete();
+        return back();
     }
 }
