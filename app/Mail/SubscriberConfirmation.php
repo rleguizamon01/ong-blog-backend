@@ -32,7 +32,7 @@ class SubscriberConfirmation extends Mailable
     {
         return $this->markdown('emails.subscribers.confirm')
             ->with([
-                'url' => 'localhost:8000',
+                'url' => route('welcome'),
             ]);
     }
 }
