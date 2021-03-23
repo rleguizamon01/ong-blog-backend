@@ -29,7 +29,6 @@ class SubscriberRequest extends FormRequest
                 'first_name' => 'required|string|min:2|max:100',
                 'last_name' => 'required|string|min:2|max:100',
                 'email' => 'required|email|unique:subscribers',
-                'ip' => 'required|ip',
             ];
         } else {
             return [
@@ -40,7 +39,6 @@ class SubscriberRequest extends FormRequest
                     'email',
                     Rule::unique('subscribers')->ignore(request()->route('subscriber')->id),
                 ],
-                'ip' => 'required|ip',
             ];
         }
     }
@@ -56,7 +54,6 @@ class SubscriberRequest extends FormRequest
             'first_name' => 'Nombre',
             'last_name' => 'Apellido',
             'email' => 'Email',
-            'ip' => 'IP',
         ];
     }
 
@@ -75,7 +72,6 @@ class SubscriberRequest extends FormRequest
             'max' => 'El campo :attribute debe tener como maximo :max caracteres',
             'email.unique' => 'Ese email ya está siendo utilizado, por favor ingrese otro',
             'email.email' => 'Debe ingresar un email valido',
-            'ip.ip' => 'Debe ingresar una ip valida',
         ];
     }
 }
