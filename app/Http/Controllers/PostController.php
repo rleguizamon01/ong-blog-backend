@@ -14,6 +14,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
     public function index(Category $category)
     {
         if ($category->exists) {
@@ -78,7 +82,6 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $this->authorize('author', $post);
         $categories = Category::select('id', 'name')->orderBy('name', 'ASC')->get();
         return view('posts.edit', ['post' => $post, 'categories' => $categories]);
     }
@@ -92,8 +95,6 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
-        $this->authorize('author', $post);
-
         if ($request->hasFile('photo')) {
             $request->file('photo')->store('images');
         }
@@ -110,8 +111,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize('author', $post);
-
         //
     }
 }
