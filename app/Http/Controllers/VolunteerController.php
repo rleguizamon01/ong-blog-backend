@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VolunteerConfirmation;
 use App\Http\Requests\VolunteerRequest;
 use Illuminate\Http\Request;
 use App\Models\Volunteer;
@@ -21,6 +23,9 @@ class VolunteerController extends Controller
     {
         $volunteer = new Volunteer;
         $volunteer->create($request->all());
+        
+        Mail::to(request('email'))
+            ->send(new VolunteerConfirmation($request->first_name));
 
         return redirect()->back()->withSuccess('Inscripto como voluntario exitosamente');
     }
