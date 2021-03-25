@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('website.layout')
 
 @section('title')
     Inicio
@@ -31,14 +31,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</h2><a href="/volunteers" class="hero-link">Voluntariado</a>
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</h2><a href="/volunteers/create" class="hero-link">Voluntariado</a>
                 </div>
             </div>
         </div>
     </section>
     <br>
     <!-- Newsletter Section-->
-   @component('components.formCreateSubscriber')
-   @endcomponent
+    @include('website.subscribers.create')
     <br>
 @endsection
