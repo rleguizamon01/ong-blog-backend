@@ -16,12 +16,12 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('website.welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('volunteers', App\Http\Controllers\VolunteerController::class);
 Route::resource('posts', App\Http\Controllers\PostController::class);
@@ -32,21 +32,17 @@ Route::resource('donations', App\Http\Controllers\DonationController::class);
 
 Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::class, 'index'])->name('categories.posts.index');
 
-Route::get('/back', function () {
-    return view('layouts.masterBack');
-});
-
-Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class, [
         'except' => ['create', 'store']
     ]);
 
-    Route::resource('subscribers', App\Http\Controllers\Admin\PostController::class, [
+    Route::resource('subscribers', App\Http\Controllers\Admin\SuscriberController::class, [
         'except' => ['create', 'store']
     ]);
 
-    Route::resource('volunteers', App\Http\Controllers\Admin\VolunteersController::class, [
+    Route::resource('volunteers', App\Http\Controllers\Admin\VolunteerController::class, [
         'except' => ['create', 'store']
     ]);
 
@@ -57,6 +53,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
     Route::resource('donations', App\Http\Controllers\Admin\DonationController::class, [
         'except' => ['create', 'store', 'destroy']
     ]);
+
+    Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
 });
 
 Route::get('/approved/{post}', [App\Http\Controllers\PostApprovalController::class, 'publish'])->name('posts.publish');
