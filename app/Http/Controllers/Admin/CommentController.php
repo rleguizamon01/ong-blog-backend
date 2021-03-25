@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
@@ -18,7 +18,7 @@ class CommentController extends Controller
      */
     public function index(Post $post)
     {
-        return view('website.comments.index', ['comments' => Comment::paginate(10)]);
+        return view('admin.comments.index', ['comments' => Comment::paginate(10)]);
     }
 
     /**
@@ -28,7 +28,7 @@ class CommentController extends Controller
      */
     public function create(Post $post)
     {
-        return view('website.comments.create', ['post' => $post]);
+        // return view('admin.comments.create', ['post' => $post]);
     }
 
     /**
@@ -40,14 +40,14 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request, Post $post)
     {
-        $comment = Comment::create([
-            'email' => $request->email,
-            'ip' => request()->ip(),
-            'body' => $request->body,
-            'post_id' => $post->id,
-        ]);
+        // $comment = Comment::create([
+        //     'email' => $request->email,
+        //     'ip' => request()->ip(),
+        //     'body' => $request->body,
+        //     'post_id' => $post->id,
+        // ]);
 
-        return $comment;
+        // return $comment;
     }
 
     /**
@@ -70,7 +70,7 @@ class CommentController extends Controller
     public function edit(Post $post, Comment $comment)
     {
         $this->authorize('update-comment', $comment);
-        return view('website.comments.edit', [
+        return view('admin.comments.edit', [
             'post' => $post,
             'comment' => $comment,
         ]);
