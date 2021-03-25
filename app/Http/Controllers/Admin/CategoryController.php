@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::withCount('posts')->orderBy('name', 'ASC')->get();
-        return view('website.categories.index', ['categories' => $categories]);
+        return view('admin.categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // return view('website.categories.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -37,8 +37,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        // Category::create($request->all());
-        // return redirect()->route('website.categories.index');
+        Category::create($request->all());
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -49,11 +49,11 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        // $category = $category->load(['posts' => function ($query) {
-        //     $query->orderBy('created_at', 'desc');
-        // }]);
+        $category = $category->load(['posts' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }]);
 
-        // return $category;
+        return $category;
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        // return view('website.categories.edit', ['category' => $category]);
+        return view('admin.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -76,8 +76,8 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        // $category->update($request->all());
-        // return redirect()->route('website.categories.index');
+        $category->update($request->all());
+        return redirect()->route('admin.categories.index');
     }
 
     /**
