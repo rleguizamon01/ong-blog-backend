@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('website.layout')
 
 @section('title', 'Voluntarios')
 
@@ -8,11 +8,11 @@
         <div class="row mt-4 row-cols-1 row-cols-md-2">
             @foreach($volunteers as $volunteer)
                 <div class="col">
-                    <div class="card border-primary mb-5 pr-5 pl-5">    
+                    <div class="card border-primary mb-5 pr-5 pl-5">
                         <div class="card-body">
                             <!-- Names -->
-                            <a href="{{ route('volunteers.show', $volunteer->id) }}" class="text-decoration-none"> 
-                                <h5 class="card-title"> {{ $volunteer->first_name }} {{$volunteer->last_name}} </h5> 
+                            <a href="{{ route('volunteers.show', $volunteer->id) }}" class="text-decoration-none">
+                                <h5 class="card-title"> {{ $volunteer->first_name }} {{$volunteer->last_name}} </h5>
                             </a>
                             <div class="d-flex justify-content-between mt-2 mb-2">
                                 <!-- Date -->

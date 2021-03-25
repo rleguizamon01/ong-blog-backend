@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\VolunteerRequest;
 use App\Mail\VolunteerConfirmation;
@@ -17,28 +17,28 @@ class VolunteerController extends Controller
 
     public function index()
     {
-        return view('website.volunteers.index', ['volunteers' => Volunteer::paginate(10)]);
+        return view('admin.volunteers.index', ['volunteers' => Volunteer::paginate(10)]);
     }
 
     public function create()
     {
-        return view('website.volunteers.create');
+        // return view('admin.volunteers.create');
     }
 
     public function store(VolunteerRequest $request)
     {
-        $volunteer = new Volunteer;
-        $volunteer->create($request->all());
+        // $volunteer = new Volunteer;
+        // $volunteer->create($request->all());
 
-        Mail::to(request('email'))
-            ->send(new VolunteerConfirmation($request->first_name));
+        // Mail::to(request('email'))
+        //     ->send(new VolunteerConfirmation($request->first_name));
 
-        return redirect()->back()->withSuccess('Inscripto como voluntario exitosamente');
+        // return redirect()->back()->withSuccess('Inscripto como voluntario exitosamente');
     }
 
     public function show(Volunteer $volunteer)
     {
-        return view('website.volunteers.show', ['volunteer' => $volunteer]);
+        return view('admin.volunteers.show', ['volunteer' => $volunteer]);
     }
 
     public function edit($id)
@@ -53,7 +53,7 @@ class VolunteerController extends Controller
 
     public function destroy(Volunteer $volunteer)
     {
-        // $volunteer->delete();
-        // return redirect()->back();
+        $volunteer->delete();
+        return redirect()->back();
     }
 }

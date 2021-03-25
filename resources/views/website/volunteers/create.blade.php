@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('website.layout')
 
 @section('title', 'Voluntarios')
 
@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        <div class="row justify-content-center mt-4 ml-2 mr-2 mb-5"> 
+        <div class="row justify-content-center mt-4 ml-2 mr-2 mb-5">
             <form action="{{ route('volunteers.store') }}" method="POST">
                 @csrf
 
@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label for="first_name">Nombre</label>
                     <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Nombre" value="{{ old('first_name') }}">
-                    
+
                     @error('first_name')
                         <div class="alert alert-danger mt-3 small p-2"> {{ $errors->first('first_name') }} </div>
                     @enderror
@@ -75,7 +75,7 @@
                         <div class="alert alert-danger mt-3 small p-2"> {{ $errors->first('birthdate') }} </div>
                     @enderror
                 </div>
-            
+
                 <!-- Body -->
                 <div class="form-group">
                     <label for="body">Contanos cómo conociste la ONG y por qué querés unirte al voluntariado</label>
