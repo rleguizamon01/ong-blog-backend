@@ -57,6 +57,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     ]);
 
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
-});
 
-Route::get('/approved/{post}', [App\Http\Controllers\PostApprovalController::class, 'publish'])->name('posts.publish');
+    Route::get('posts/approved/{post}', [App\Http\Controllers\Admin\PostApprovalController::class, 'publish'])->name('posts.publish');
+});

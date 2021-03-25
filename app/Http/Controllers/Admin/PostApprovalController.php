@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PostApproved;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PostApprovalController extends Controller
 {
