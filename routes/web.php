@@ -57,6 +57,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
     Route::resource('donations', App\Http\Controllers\Admin\DonationController::class, [
         'except' => ['create', 'store', 'destroy']
     ]);
+
+    Route::get('volunteers/approved/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'update'])->name('volunteers.approved');
+    Route::get('volunteers/rejected/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.rejected');
 });
 
 Route::get('/approved/{post}', [App\Http\Controllers\PostApprovalController::class, 'publish'])->name('posts.publish');
+
