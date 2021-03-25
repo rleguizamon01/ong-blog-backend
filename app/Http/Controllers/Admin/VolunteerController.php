@@ -7,6 +7,7 @@ use App\Mail\VolunteerConfirmation;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Controller;
 
 class VolunteerController extends Controller
 {

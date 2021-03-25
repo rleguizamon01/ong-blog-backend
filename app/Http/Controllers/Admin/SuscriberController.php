@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
+use App\Http\Controllers\Controller;
 
 class SuscriberController extends Controller
 {
