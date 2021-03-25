@@ -13,6 +13,9 @@
      <link href="{{ asset('css/style.default.css') }}" rel="stylesheet">
     <!-- Custome CSS-->
      <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+          integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <!-- Custom icon font-->
     <link rel="stylesheet" href="{{ asset('css/fontastic.css') }}">
     <!-- Google fonts - Open Sans-->
@@ -37,19 +40,19 @@
           <!-- Navbar Menu -->
           <div id="navbarcollapse" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href="{{ route('home') }}" class="nav-link active ">Home</a>
+              <li class="nav-item"><a href="/" class="nav-link {{(Request::path()==='/') ? 'active' : ''}}">Inicio</a>
               </li>
-              <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link ">Posts</a>
+              <li class="nav-item"><a href="{{ route('admin.posts.index') }}" class="nav-link {{(Request::path()==='admin/posts') ? 'active' : ''}}">Posts</a>
               </li>
-              <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link ">Categories</a>
+              <li class="nav-item"><a href="{{ route('admin.categories.index') }}" class="nav-link {{(Request::path()==='admin/categories') ? 'active' : ''}}">Categorias</a>
               </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Comments</a>
+              <li class="nav-item"><a href="{{ route('admin.comments.index') }}" class="nav-link {{(Request::path()==='admin/comments') ? 'active' : ''}}">Comentarios</a>
               </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Volunteers</a>
+              <li class="nav-item"><a href="{{ route('admin.volunteers.index') }}" class="nav-link {{(Request::path()==='admin/volunteers') ? 'active' : ''}}">Voluntarios</a>
               </li>
-              <li class="nav-item"><a href="#" class="nav-link ">Donations</a>
+              <li class="nav-item"><a href="{{ route('admin.donations.index') }}" class="nav-link {{(Request::path()==='admin/donations') ? 'active' : ''}}">Donaciones</a>
               </li>
-              <li class="nav-item"><a href="{{ route('subscribers.index') }}" class="nav-link ">Subscribers</a>
+              <li class="nav-item"><a href="{{ route('admin.subscribers.index') }}" class="nav-link {{(Request::path()==='admin/subscribers') ? 'active' : ''}}">Suscriptores</a>
               </li>
             </ul>
           </div>
