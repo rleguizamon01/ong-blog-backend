@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Category;
@@ -21,7 +21,7 @@ class PostController extends Controller
         } else {
             $posts = Post::with('category', 'user')->latest()->paginate(10);
         }
-        return view('website.posts.index', ['posts' => $posts]);
+        return view('admin.posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -31,8 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('id', 'name')->orderBy('name', 'ASC')->get();
-        return view('website.posts.create', ['categories' => $categories]);
+        //
     }
 
     /**
@@ -43,17 +42,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $data = $request->merge([
-            'user_id' => Auth::id(),
-        ]);
-
-        if ($request->hasFile('photo')) {
-            $request->file('photo')->store('images');
-        }
-
-        $post = Post::create($data->all());
-
-        return $post;
+        //
     }
 
     /**
@@ -79,7 +68,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::select('id', 'name')->orderBy('name', 'ASC')->get();
-        return view('website.posts.edit', ['post' => $post, 'categories' => $categories]);
+        return view('admin.posts.edit', ['post' => $post, 'categories' => $categories]);
     }
 
     /**
