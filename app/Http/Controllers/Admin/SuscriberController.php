@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
@@ -14,7 +14,7 @@ class SuscriberController extends Controller
      */
     public function index()
     {
-        // return view('website.subscribers.index', ['subscribers' => Subscriber::paginate(10)]);
+        return view('admin.subscribers.index', ['subscribers' => Subscriber::paginate(10)]);
     }
 
     /**
@@ -35,7 +35,7 @@ class SuscriberController extends Controller
      */
     public function store(Request $request)
     {
-        //FALTA HACERLA
+        //
     }
 
     /**
