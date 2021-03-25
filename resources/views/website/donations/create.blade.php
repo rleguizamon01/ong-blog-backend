@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('website.layout')
 
 @section('title', 'Donaciones')
 
@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        <div class="row justify-content-center mt-4 ml-2 mr-2 mb-5"> 
+        <div class="row justify-content-center mt-4 ml-2 mr-2 mb-5">
             <form action="{{ route('donations.store') }}" method="POST">
                 @csrf
 
