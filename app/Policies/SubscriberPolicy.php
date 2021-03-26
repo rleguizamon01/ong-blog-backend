@@ -77,7 +77,7 @@ class SubscriberPolicy
      */
     public function restore(User $user, Subscriber $subscriber)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,6 @@ class SubscriberPolicy
      */
     public function forceDelete(User $user, Subscriber $subscriber)
     {
-        //
+        return $user->isAdmin();
     }
 }
