@@ -33,14 +33,16 @@
                             <tr>
                                 <!-- Name -->
                                 <th scope="row">
-                                    <a href="{{ route('categories.posts.index', $category->id) }}">
+                                    <a href="{{ route('categories.show', $category->id) }}">
                                         {{ $category->name }}
                                     </a>
                                 </th>
 
                                 <!-- Posts count -->
                                 <td>
-                                    {{ $category->posts_count }}
+                                    <a href="{{ route('categories.show', $category->id) }}">
+                                        {{ $category->posts_count }}
+                                    </a>
                                 </td>
 
                                 <!-- Edit button -->
