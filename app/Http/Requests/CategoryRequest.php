@@ -24,15 +24,23 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-        'name' => "required|string|min:1|max:50",
+        'name' => "required|string|max:50",
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'nombre',
+        ];
+    }
+
     public function messages()
     {
         return [
             'required' => 'Debe completar el campo :attribute',
-            'min' => 'El campo :attribute debe tener al menos :min caracteres',
-            'max' => 'El campo :attribute no debe superar :max caracteres'
+            'string' => 'El campo :attribute debe ser una cadena de texto',
+            'max' => 'El campo :attribute no debe superar :max caracteres',
         ];
     }
 }
