@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
+use App\Models\User;
 
 class SuscriberController extends Controller
 {
@@ -81,6 +82,6 @@ class SuscriberController extends Controller
      */
     public function destroy(Subscriber $subscriber, $hash)
     {
-       $this->authorize('subscriber', $subscriber, $hash);
+        
     }
 }
