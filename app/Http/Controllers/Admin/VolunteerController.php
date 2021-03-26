@@ -15,7 +15,7 @@ class VolunteerController extends Controller
      */
     public function index()
     {
-        return view('admin.volunteers.index', ['volunteers' => Volunteer::paginate(10)]);
+        return view('admin.volunteers.index', ['volunteers' => Volunteer::paginate(10), 'estado' => 'all', 'filter' => '']);
     }
 
     /**
@@ -82,5 +82,30 @@ class VolunteerController extends Controller
     public function destroy(Volunteer $volunteer)
     {
         //
+    }
+    public function filter(Request $request)
+    {
+        $status = $request->status;
+        $filter = $request->filter;
+
+        if($status == 'all')    
+        {
+            $volunteers = Volunteer::
+            where('first_name', 'like', '%' . $filter . '%')
+            ->orWhere('last_name', 'like', '%' . $filter . '%')
+            ->orWhere('email', 'like', '%' . $filter . '%')
+            ->paginate(4);
+        }
+        else
+        {
+            $volunteers = Volunteer::where('status',$status)
+            ->where(function($query,) use ($filter){
+                $query->where('first_name', 'like', '%' . $filter . '%')
+                ->orWhere('last_name', 'like', '%' . $filter . '%')
+                ->orWhere('email', 'like', '%' . $filter . '%');
+            })->paginate(4);
+        }
+        $volunteers->appends(['status'=> $status, 'filter'=> $filter]);
+        return view('admin.volunteers.index', ['volunteers' => $volunteers, 'estado' => $status, 'filter' => $filter ]);
     }
 }
