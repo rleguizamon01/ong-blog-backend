@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 @section('content')
 @if (Session::has('deleted'))
      <div class="alert alert-warning" role="alert"> Se ha eliminado a {{session('deleted')}} </div>
