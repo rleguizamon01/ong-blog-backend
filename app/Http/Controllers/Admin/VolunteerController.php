@@ -15,7 +15,7 @@ class VolunteerController extends Controller
      */
     public function index()
     {
-        return view('admin.volunteers.index', ['volunteers' => Volunteer::paginate(10)]);
+        return view('admin.volunteers.index', ['volunteers' => Volunteer::orderBy('status', 'asc')->orderBy('reviewed_at', 'desc')->paginate(10)]);
     }
 
     /**
