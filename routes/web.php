@@ -44,10 +44,13 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
 
     Route::get('subscribers/filter', [\App\Http\Controllers\Admin\SubscriberController::class, 'filter'])->name('subscribers.filter');
 
+    Route::delete('subscribers/destroyall', [\App\Http\Controllers\Admin\SubscriberController::class,'destroyAll'])->name('subscribers.destroyAll');
 
     Route::resource('subscribers', App\Http\Controllers\Admin\SubscriberController::class, [
         'except' => ['create', 'store']
     ]);
+
+
 
 
     Route::resource('volunteers', App\Http\Controllers\Admin\VolunteersController::class, [
