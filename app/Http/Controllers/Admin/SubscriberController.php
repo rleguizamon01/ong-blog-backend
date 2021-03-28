@@ -99,6 +99,6 @@ class SubscriberController extends Controller
     foreach ($request->id as $sub){
         Subscriber::destroy($sub);
     }
-        return redirect(route('admin.subscribers.index'))->with('deleted', 'La eliminación ha sido exitosa');
+        return redirect(route('admin.subscribers.index'))->with('alert','Los suscriptores han sido eliminados');
     }
 }

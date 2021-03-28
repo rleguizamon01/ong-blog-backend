@@ -3,6 +3,11 @@
 @if (Session::has('deleted'))
      <div class="alert alert-warning" role="alert"> Se ha eliminado a {{session('deleted')}} </div>
    @endif
+@if (session('alert'))
+    <div class="alert alert-success">
+        {{ session('alert') }}
+    </div>
+@endif
 @error('id')
 <div class="alert alert-danger">Seleccione al menos un suscriptor</div>
 @enderror
