@@ -8,6 +8,11 @@ use App\Http\Requests\DonationFilterRequest;
 
 class DonationController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Donation::class, 'donation');
+    }
+
     public function index(DonationFilterRequest $request)
     {
         if($request->query('from_date') && $request->query('to_date')){
@@ -52,12 +57,16 @@ class DonationController extends Controller
     }
     
     public function indexAsc(){
+        $this->authorize('viewAny', Donation::class);
+
         $donations = Donation::orderBy('amount', 'ASC')->paginate(10);
 
         return view('admin.donations.index', ['donations' => $donations]);
     }
 
     public function indexDesc(){
+        $this->authorize('viewAny', Donation::class);
+
         $donations = Donation::orderBy('amount', 'DESC')->paginate(10);
 
         return view('admin.donations.index', ['donations' => $donations]);
