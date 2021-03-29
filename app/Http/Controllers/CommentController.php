@@ -47,7 +47,7 @@ class CommentController extends Controller
             'post_id' => $post->id,
         ]);
 
-        return $comment;
+        return redirect()->route('posts.show',$post->id);
     }
 
     /**
