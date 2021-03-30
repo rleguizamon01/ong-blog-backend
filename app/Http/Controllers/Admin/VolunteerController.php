@@ -88,23 +88,16 @@ class VolunteerController extends Controller
         $status = $request->status;
         $filter = $request->filter;
 
-        if($status == 'all')    
-        {
-            $volunteers = Volunteer::
-            where('first_name', 'like', '%' . $filter . '%')
+        $volunteers = Volunteer::where(function($query,) use ($filter){
+            $query->where('first_name', 'like', '%' . $filter . '%')
             ->orWhere('last_name', 'like', '%' . $filter . '%')
-            ->orWhere('email', 'like', '%' . $filter . '%')
-            ->paginate(4);
+            ->orWhere('email', 'like', '%' . $filter . '%');
+            });
+        if ($status <> 'all') {
+            $volunteers->where('status', $status);
         }
-        else
-        {
-            $volunteers = Volunteer::where('status',$status)
-            ->where(function($query,) use ($filter){
-                $query->where('first_name', 'like', '%' . $filter . '%')
-                ->orWhere('last_name', 'like', '%' . $filter . '%')
-                ->orWhere('email', 'like', '%' . $filter . '%');
-            })->paginate(4);
-        }
+        $volunteers=$volunteers->paginate(4);
+
         $volunteers->appends(['status'=> $status, 'filter'=> $filter]);
         return view('admin.volunteers.index', ['volunteers' => $volunteers, 'estado' => $status, 'filter' => $filter ]);
     }
