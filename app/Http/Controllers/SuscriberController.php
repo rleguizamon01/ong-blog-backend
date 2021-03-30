@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubscriberRequest;
+use App\Mail\SubscriberConfirmation;
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
+use Illuminate\Support\Facades\Mail;
 
 class SuscriberController extends Controller
 {
@@ -14,7 +17,7 @@ class SuscriberController extends Controller
      */
     public function index()
     {
-        // return view('website.subscribers.index', ['subscribers' => Subscriber::paginate(10)]);
+        //
     }
 
     /**
@@ -24,7 +27,7 @@ class SuscriberController extends Controller
      */
     public function create()
     {
-        //
+        return view('components.formCreateSubscriber');
     }
 
     /**
@@ -33,9 +36,18 @@ class SuscriberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubscriberRequest $request)
     {
-        //FALTA HACERLA
+        $subscriber = Subscriber::create([
+            'email' => $request->email,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'ip' => request()->ip(),
+        ]);
+        $correo = new SubscriberConfirmation($subscriber);
+        Mail::to($request->email)->send($correo);
+
+        return "Mensaje enviado";
     }
 
     /**

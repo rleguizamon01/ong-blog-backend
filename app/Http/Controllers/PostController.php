@@ -14,6 +14,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
     public function index(Category $category)
     {
         if ($category->exists) {
@@ -67,7 +71,8 @@ class PostController extends Controller
         $post = $post->load(['comments' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }]);
-        return $post;
+//        ddd($post);
+        return view('posts.show',['post' => $post]);
     }
 
     /**

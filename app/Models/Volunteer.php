@@ -16,6 +16,8 @@ class Volunteer extends Model
         'email',
         'phone_number',
         'birthdate',
-        'body'
+        'body',
+        'status',
+        'reviewed_at'
     ];
 }

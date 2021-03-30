@@ -20,7 +20,7 @@
                                     {{ $volunteer->created_at->format('d M Y') }}
                                 </div>
                             </div>
-                        <!-- Volunteer details -->
+                            <!-- Volunteer details -->
                             <a href="{{ route('volunteers.show', $volunteer->id) }}" class="btn btn-primary">Detalles</a>
                         </div>
                     </div>

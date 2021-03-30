@@ -59,4 +59,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
 
     Route::get('posts/approved/{post}', [App\Http\Controllers\Admin\PostApprovalController::class, 'publish'])->name('posts.publish');
+
+    Route::get('volunteers/approved/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'update'])->name('volunteers.approved');
+    Route::get('volunteers/rejected/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.rejected');
 });

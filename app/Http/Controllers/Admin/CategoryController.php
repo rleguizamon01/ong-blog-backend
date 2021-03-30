@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::withCount('posts')->orderBy('name', 'ASC')->get();
+        $categories = Category::withCount('posts')->orderBy('name', 'ASC')->paginate(10);
         return view('admin.categories.index', ['categories' => $categories]);
     }
 
@@ -39,7 +39,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->all());
-        return redirect()->route('admin.categories.index');
+        return redirect()->back()->withSuccess('Categoría creada exitosamente');
     }
 
     /**
@@ -50,11 +50,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $category = $category->load(['posts' => function ($query) {
-            $query->orderBy('created_at', 'desc');
-        }]);
-
-        return $category;
+        return view('admin.categories.show', ['category' => $category]);
     }
 
     /**
@@ -78,7 +74,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
-        return redirect()->route('admin.categories.index');
+        return redirect()->back()->withSuccess('Categoría editada exitosamente');
     }
 
     /**
@@ -89,6 +85,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        Post::where('category_id', $category->id)->delete();
+
+        $category->delete();
+
+        return redirect()->back()->withSuccess('Categoría '. $category->name . ' eliminada exitosamente');
     }
 }
