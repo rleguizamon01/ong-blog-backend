@@ -16,14 +16,26 @@ class DonationController extends Controller
     public function index(DonationFilterRequest $request)
     {
         if($request->query('from_date') && $request->query('to_date')){
-            $donations = Donation::whereBetween('created_at', [$request->query('from_date'), $request->query('to_date')])
-                        ->paginate(10)->withQueryString();             
+            $donations = Donation::whereBetween('created_at', [$request->query('from_date'), $request->query('to_date')]);
+                        
+            if($request->query('order') == 'asc'){
+                $donations->orderBy('amount', 'ASC');
+            }      
+            elseif($request->query('order') == 'desc'){
+                $donations->orderBy('amount', 'DESC');
+            }   
+        }
+        elseif($request->query('order') == 'asc'){
+            $donations = Donation::orderBy('amount', 'ASC');
+        } 
+        elseif($request->query('order') == 'desc'){
+            $donations = Donation::orderBy('amount', 'DESC');
         }
         else{
-            $donations = Donation::latest()->paginate(10);
+            $donations = Donation::latest();
         }
 
-        return view('admin.donations.index', ['donations' => $donations]);
+        return view('admin.donations.index', ['donations' => $donations->paginate(10)->withQueryString()]);
     }
 
     public function create()
