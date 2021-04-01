@@ -29,27 +29,32 @@
                             @enderror
                         </div>
                     </div>
-                    
-                    <div class="row justify-content-between">
-                        <!-- Submit button -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary" >Filtrar</button>
-                        </div>
 
-                        <!-- Order by desc or asc amount buttons -->
-                        <div class="col-4">
-                            <div class="btn-group float-right" role="group" aria-label="Basic example">
-                                <a href="{{ route('donations.index.asc') }}" class="btn btn-dark p-1 mb-4">
-                                    <i class="fas fa-sort-amount-down-alt"></i>
-                                </a>
-
-                                <a href="{{ route('donations.index.desc') }}" class="btn btn-dark p-1 mb-4">
-                                    <i class="fas fa-sort-amount-down"></i>
-                                </a>
-                            </div>
+                    <div class="row">
+                        <!-- Radio buttons -->
+                        <div class="col-sm form-group mb-1">
+                            <fieldset id="order">
+                                <label>
+                                    <input type="radio" name="order" value="asc" 
+                                    {{ app('request')->input('order') == 'asc' ? 'checked' : '' }}> 
+                                        Ascendente
+                                </label>
+                                <label>
+                                    <input type="radio" name="order" value="desc" 
+                                    {{ app('request')->input('order') == 'desc' ? 'checked' : '' }}> 
+                                        Descendente
+                                </label>
+                            </fieldset>
                         </div>
                     </div>
                     
+                    <div class="row">
+                        <!-- Submit button -->
+                        <div class="col-sm">
+                        <button type="submit" class="btn btn-primary" >Filtrar</button>
+                        </div>
+                    </div>
+                                       
                 </form>
             </div>
 
