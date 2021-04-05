@@ -89,8 +89,16 @@ class SubscriberController extends Controller
     {
         $status = $request['status'];
         $filter = $request['filter'];
-        
+
         return view('admin.subscribers.index', ['subscribers' => Subscriber::byStatus($status)->search($filter)->paginate(10), 'status' => $status]);
-    }    
-    
+    }
+    public function destroyAll(Request $request){
+        $request->validate([
+            'id' => 'required',
+        ]);
+    foreach ($request->id as $sub){
+        Subscriber::destroy($sub);
+    }
+        return redirect(route('admin.subscribers.index'))->with('alert','Los suscriptores han sido eliminados');
+    }
 }

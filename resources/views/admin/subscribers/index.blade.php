@@ -2,7 +2,15 @@
 @section('content')
 @if (Session::has('deleted'))
      <div class="alert alert-warning" role="alert"> Se ha eliminado a {{session('deleted')}} </div>
-   @endif  
+   @endif
+@if (session('alert'))
+    <div class="alert alert-success">
+        {{ session('alert') }}
+    </div>
+@endif
+@error('id')
+<div class="alert alert-danger">Seleccione al menos un suscriptor</div>
+@enderror
 <div class="m-4">
     <h2 >
         Listado de Suscriptores
@@ -17,19 +25,27 @@
                     <option {{ $status == 'delete' ? "selected " : '' }}value='delete' >Eliminados</option>
                 </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-5">
                 <label for="filter">Buscar:</label>
                 <input type="text" name="filter" id="filter" class="form-control" value=''>
             </div>
             <div class="form-group col-md-2">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
             </div>
-        </div>  
-    </form>    
+            <div class="form-group col-md-3">
+            <button form="delete-all" type="submit" class="btn btn-danger"><i class="far fa-trash-alt"> Eliminar seleccionados</i>
+            </button>
+            </div>
+        </div>
+    </form>
+    <form id="delete-all" action="{{route('admin.subscribers.destroyAll')}}" method="POST">
+        @csrf
+        @method('delete')
     <div class="table-responsive bg-light">
         <table class="table">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Email</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
@@ -40,6 +56,11 @@
             <tbody>
             @foreach ($subscribers as $subscriber)
             <tr>
+                <td>
+                    @if (!$subscriber->deleted_at)
+                        <input class="form-check-input" name="id[]" type="checkbox" value="{{$subscriber->id}}" id="checked">
+                    @endif
+                </td>
                 <td>
                     {{$subscriber->email}}
                 </td>
@@ -57,12 +78,12 @@
                         <i class="btn btn-primary fas fa-edit" aria-hidden="true"></i>
                     </a>
                     @if (!$subscriber->deleted_at)
-                        <form class="d-inline-flex" action="{{route('admin.subscribers.destroy', ['subscriber' => $subscriber->id])}}" method="POST">
+                        <form id="delete-{{$subscriber->id}}" class="d-inline-flex" action="{{route('admin.subscribers.destroy', ['subscriber' => $subscriber->id])}}" method="POST">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i>
+                            <button form="delete-{{$subscriber->id}}" type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i>
                             </button>
-                        </form>  
+                        </form>
                     @endif
                 </td>
             </tr>
@@ -70,6 +91,7 @@
             </tbody>
         </table>
     </div>
+    </form>
     <p>{{$subscribers->links()}}</p>
 </div>
 @endsection

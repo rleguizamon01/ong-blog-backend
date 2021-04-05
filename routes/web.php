@@ -36,7 +36,7 @@ Route::get('/back', function () {
     return view('layouts.masterBack');
 });
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class, [
         'except' => ['create', 'store']
@@ -44,6 +44,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
 
     Route::get('subscribers/filter', [\App\Http\Controllers\Admin\SubscriberController::class, 'filter'])->name('subscribers.filter');
 
+    Route::delete('subscribers/destroyall', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroyAll'])->name('subscribers.destroyAll');
 
     Route::resource('subscribers', App\Http\Controllers\Admin\SubscriberController::class, [
         'except' => ['create', 'store']
