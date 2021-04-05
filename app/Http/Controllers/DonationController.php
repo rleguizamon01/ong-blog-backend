@@ -4,82 +4,83 @@ namespace App\Http\Controllers;
 
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use App\Http\Requests\DonationFilterRequest;
 
 class DonationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->authorizeResource(Donation::class, 'donation');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index(DonationFilterRequest $request)
+    {
+        if($request->query('from_date') && $request->query('to_date')){
+            $donations = Donation::whereBetween('created_at', [$request->query('from_date'), $request->query('to_date')]);
+                        
+            if($request->query('order') == 'asc'){
+                $donations->orderBy('amount', 'ASC');
+            }      
+            elseif($request->query('order') == 'desc'){
+                $donations->orderBy('amount', 'DESC');
+            }   
+        }
+        elseif($request->query('order') == 'asc'){
+            $donations = Donation::orderBy('amount', 'ASC');
+        } 
+        elseif($request->query('order') == 'desc'){
+            $donations = Donation::orderBy('amount', 'DESC');
+        }
+        else{
+            $donations = Donation::latest();
+        }
+
+        return view('admin.donations.index', ['donations' => $donations->paginate(10)->withQueryString()]);
+    }
+
     public function create()
     {
         return view('donations.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Donation  $donation
-     * @return \Illuminate\Http\Response
-     */
     public function show(Donation $donation)
     {
-        //
+        return view('admin.donations.show', ['donation' => $donation]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Donation  $donation
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Donation $donation)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Donation  $donation
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Donation $donation)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Donation  $donation
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Donation $donation)
     {
         //
+    }
+    
+    public function indexAsc(){
+        $this->authorize('viewAny', Donation::class);
+
+        $donations = Donation::orderBy('amount', 'ASC')->paginate(10);
+
+        return view('admin.donations.index', ['donations' => $donations]);
+    }
+
+    public function indexDesc(){
+        $this->authorize('viewAny', Donation::class);
+
+        $donations = Donation::orderBy('amount', 'DESC')->paginate(10);
+
+        return view('admin.donations.index', ['donations' => $donations]);
     }
 }
