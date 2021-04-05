@@ -36,7 +36,7 @@ Route::get('/back', function () {
     return view('layouts.masterBack');
 });
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class, [
         'except' => ['create', 'store']
@@ -44,16 +44,15 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
 
     Route::get('subscribers/filter', [\App\Http\Controllers\Admin\SubscriberController::class, 'filter'])->name('subscribers.filter');
 
-    Route::delete('subscribers/destroyall', [\App\Http\Controllers\Admin\SubscriberController::class,'destroyAll'])->name('subscribers.destroyAll');
+    Route::delete('subscribers/destroyall', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroyAll'])->name('subscribers.destroyAll');
 
     Route::resource('subscribers', App\Http\Controllers\Admin\SubscriberController::class, [
         'except' => ['create', 'store']
     ]);
 
 
-
-
-    Route::resource('volunteers', App\Http\Controllers\Admin\VolunteersController::class, [
+    Route::get('volunteers/filter', [App\Http\Controllers\Admin\VolunteerController::class, 'filter'])->name('volunteers.filter');
+    Route::resource('volunteers', App\Http\Controllers\Admin\VolunteerController::class, [
         'except' => ['create', 'store']
     ]);
 
@@ -67,6 +66,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
 
     Route::get('volunteers/approved/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'update'])->name('volunteers.approved');
     Route::get('volunteers/rejected/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.rejected');
+
 });
 
 Route::get('/approved/{post}', [App\Http\Controllers\PostApprovalController::class, 'publish'])->name('posts.publish');
