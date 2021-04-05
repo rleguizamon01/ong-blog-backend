@@ -12,12 +12,12 @@ class VolunteerPolicy
 
     public function viewAny(User $user)
     {
-        return $user->role == 'client' || $user->role == 'admin';
+        return $user->role == 'collaborator' || $user->role == 'admin';
     }
 
     public function view(User $user, Volunteer $volunteer)
     {
-        return $user->role == 'client' || $user->role == 'admin';
+        return $user->role == 'collaborator' || $user->role == 'admin';
     }
 
     public function create(?User $user)

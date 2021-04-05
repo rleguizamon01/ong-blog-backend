@@ -15,13 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    return view('website.welcome');
+});
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function () {
+    return view('website.welcome');
+})->name('home');
 
 Route::resource('volunteers', App\Http\Controllers\VolunteerController::class);
 Route::resource('posts', App\Http\Controllers\PostController::class);
@@ -33,13 +35,13 @@ Route::resource('donations', App\Http\Controllers\DonationController::class);
 
 Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::class, 'index'])->name('categories.posts.index');
 
-Route::get('/back', function () {
-    return view('layouts.masterBack');
-});
-
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class, [
+        'except' => ['create', 'store']
+    ]);
+
+    Route::resource('subscribers', App\Http\Controllers\Admin\SuscriberController::class, [
         'except' => ['create', 'store']
     ]);
 
@@ -47,12 +49,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::delete('subscribers/destroyall', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroyAll'])->name('subscribers.destroyAll');
 
-    Route::resource('subscribers', App\Http\Controllers\Admin\SubscriberController::class, [
-        'except' => ['create', 'store']
-    ]);
-
-
     Route::get('volunteers/filter', [App\Http\Controllers\Admin\VolunteerController::class, 'filter'])->name('volunteers.filter');
+
     Route::resource('volunteers', App\Http\Controllers\Admin\VolunteerController::class, [
         'except' => ['create', 'store']
     ]);
@@ -65,10 +63,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         'except' => ['create', 'store', 'destroy']
     ]);
 
+    Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
+
+    Route::get('posts/approved/{post}', [App\Http\Controllers\Admin\PostApprovalController::class, 'publish'])->name('posts.publish');
+
     Route::get('volunteers/approved/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'update'])->name('volunteers.approved');
     Route::get('volunteers/rejected/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.rejected');
 
 });
-
-Route::get('/approved/{post}', [App\Http\Controllers\PostApprovalController::class, 'publish'])->name('posts.publish');
-

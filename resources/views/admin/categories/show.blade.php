@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 
 @section('title', $category->name)
 
@@ -7,7 +7,7 @@
         
         <div class="row ml-2 mt-4">
             <!-- Back to index button -->
-            <a href="{{ route('categories.index') }}" class="btn btn-dark p-1 mb-2"><i class="fa fa-arrow-left"></i></a>
+            <a href="{{ route('admin.categories.index') }}" class="btn btn-dark p-1 mb-2"><i class="fa fa-arrow-left"></i></a>
         </div>
         <div class="row ml-2">
            <header><h5 class="mt-3 mb-3"> {{ $category->name }}</h5></header>

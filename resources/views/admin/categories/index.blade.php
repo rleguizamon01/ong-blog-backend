@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 
 @section('title', 'Categorías')
 
@@ -16,7 +16,7 @@
                 @endif
 
                 <!-- Create category button -->
-                <a class="btn btn-secondary btn-lg btn-block p-1" href="{{ route('categories.create') }}" role="button">Crear categoría</a>
+                <a class="btn btn-secondary btn-lg btn-block p-1" href="{{ route('admin.categories.create') }}" role="button">Crear categoría</a>
                 
                 <table class="table">
                     <thead>
@@ -33,26 +33,26 @@
                             <tr>
                                 <!-- Name -->
                                 <th scope="row">
-                                    <a href="{{ route('categories.show', $category->id) }}">
+                                    <a href="{{ route('admin.categories.show', $category->id) }}">
                                         {{ $category->name }}
                                     </a>
                                 </th>
 
                                 <!-- Posts count -->
                                 <td>
-                                    <a href="{{ route('categories.show', $category->id) }}">
+                                    <a href="{{ route('admin.categories.show', $category->id) }}">
                                         {{ $category->posts_count }}
                                     </a>
                                 </td>
 
                                 <!-- Edit button -->
                                 <td>
-                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                 </td>
 
                                 <!-- Delete button -->
                                 <td>
-                                    <form method="POST" action="{{ route('categories.destroy', $category->id) }}">                    
+                                    <form method="POST" action="{{ route('admin.categories.destroy', $category->id) }}">                    
                                         @METHOD('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-danger" 

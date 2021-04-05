@@ -17,12 +17,12 @@ class VolunteerController extends Controller
 
     public function index()
     {
-        return view('volunteers.index', ['volunteers' => Volunteer::paginate(10)]);
+        return view('website.volunteers.index', ['volunteers' => Volunteer::paginate(10)]);
     }
 
     public function create()
     {
-        return view('volunteers.create');
+        return view('website.volunteers.create');
     }
 
     public function store(VolunteerRequest $request)
@@ -38,7 +38,7 @@ class VolunteerController extends Controller
 
     public function show(Volunteer $volunteer)
     {
-        return view('volunteers.show', ['volunteer' => $volunteer]);
+        return view('website.volunteers.show', ['volunteer' => $volunteer]);
     }
 
     public function edit($id)
@@ -53,8 +53,7 @@ class VolunteerController extends Controller
 
     public function destroy(Volunteer $volunteer)
     {
-        $volunteer->delete();
-        return redirect()->back();
+        // $volunteer->delete();
+        // return redirect()->back();
     }
-
 }

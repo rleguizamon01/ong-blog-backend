@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Requests\VolunteerRequest;
+use App\Mail\VolunteerConfirmation;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Controller;
 
 class VolunteerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->authorizeResource(Volunteer::class, 'volunteer');
+    }
+
     public function index()
     {
         return view('admin.volunteers.index', [
@@ -22,70 +25,41 @@ class VolunteerController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        // return view('admin.volunteers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(VolunteerRequest $request)
     {
-        //
+        // $volunteer = new Volunteer;
+        // $volunteer->create($request->all());
+
+        // Mail::to(request('email'))
+        //     ->send(new VolunteerConfirmation($request->first_name));
+
+        // return redirect()->back()->withSuccess('Inscripto como voluntario exitosamente');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Volunteer $volunteer
-     * @return \Illuminate\Http\Response
-     */
     public function show(Volunteer $volunteer)
     {
-        //
+        return view('admin.volunteers.show', ['volunteer' => $volunteer]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Volunteer $volunteer
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Volunteer $volunteer)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Volunteer $volunteer
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Volunteer $volunteer)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Volunteer $volunteer
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Volunteer $volunteer)
     {
-        //
+        $volunteer->delete();
+        return redirect()->back();
     }
 
     public function filter(Request $request)

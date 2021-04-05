@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 
 @section('title', 'Editar categoría')
 
@@ -8,7 +8,7 @@
             <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-xl-6">
 
                 <!-- Back to index button -->
-                <a href="{{ route('categories.index') }}" class="btn btn-dark p-1 mb-2"><i class="fa fa-arrow-left"></i></a>
+                <a href="{{ route('admin.categories.index') }}" class="btn btn-dark p-1 mb-2"><i class="fa fa-arrow-left"></i></a>
 
                 <header>
                     <h5 class="mt-3 mb-3">Editar categoría</h5>
@@ -19,7 +19,7 @@
                         <div class="alert alert-success mb-3 small"> {{ session('success') }}</div>
                 @endif
         
-                <form method='POST' action="{{ route('categories.update', ['category' => $category]) }}" >
+                <form method='POST' action="{{ route('admin.categories.update', ['category' => $category]) }}" >
                     @method('PATCH')
                     @csrf
 

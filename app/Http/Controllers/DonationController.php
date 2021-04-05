@@ -40,7 +40,7 @@ class DonationController extends Controller
 
     public function create()
     {
-        return view('donations.create');
+        return view('website.donations.create');
     }
 
     public function store(Request $request)

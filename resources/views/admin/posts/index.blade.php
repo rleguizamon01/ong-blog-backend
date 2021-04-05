@@ -1,7 +1,9 @@
+@extends('admin.layout')
+@section('content')
 <div class="m-4">
     <h1 >
         Listado de Posts
-    </h1>  
+    </h1>
     <div class="table-responsive bg-light">
         <table class="table">
             <thead>
@@ -17,7 +19,7 @@
             @foreach ($posts as $post)
             <tr>
                 <td>
-                    <a href="{{route('posts.show', ['post'=>$post])}}">
+                    <a href="{{route('admin.posts.show', ['post'=>$post])}}">
                         {{$post->title}}
                     </a>
                 </td>
@@ -31,10 +33,10 @@
                     {{$post->status}}
                 </td>
                 <td>
-                    <a href="{{route('posts.edit', ['post'=>$post])}}">
+                    <a href="{{route('admin.posts.edit', ['post'=>$post])}}">
                         <i class="fa fa-pencil m-2" aria-hidden="true"></i>
                     </a>
-                    <form class="d-inline-flex" action="{{route('posts.destroy', ['post'=>$post])}}" method="POST">
+                    <form class="d-inline-flex" action="{{route('admin.posts.destroy', ['post'=>$post])}}" method="POST">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-danger fa fa-trash btn-eliminar">
@@ -48,3 +50,4 @@
     </div>
     <p>{{$posts->links()}}</p>
 </div>
+@endsection

@@ -1,4 +1,4 @@
-@extends('masterBack')
+@extends('admin.layout')
 
 @section('content')
     <div class="m-4">
@@ -25,15 +25,15 @@
                             {{$comment->body}}
                         </td>
                         <td>
-                            <a href="{{route('posts.show',['post' => $comment->post_id])}}">
+                            <a href="{{route('admin.posts.show',['post' => $comment->post_id])}}">
                                 {{$comment->post_id}}
                             </a>
                         </td>
                         <td>
-                            <a href="{{route('comments.edit', ['post' => $comment->post_id,'comment'=>$comment])}}">
+                            <a href="{{route('admin.comments.edit', ['post' => $comment->post_id,'comment'=>$comment])}}">
                                 <i class="btn btn-primary fas fa-edit" aria-hidden="true"></i>
                             </a>
-                            <form class="d-inline-flex" action="{{route('comments.destroy', ['post'=>$comment->post_id, 'comment'=>$comment])}}" method="POST">
+                            <form class="d-inline-flex" action="{{route('admin.comments.destroy', ['post'=>$comment->post_id, 'comment'=>$comment])}}" method="POST">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i>

@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\SubscriberRequest;
-use App\Mail\SubscriberConfirmation;
+use App\Models\Donation;
 use Illuminate\Http\Request;
-use App\Models\Subscriber;
-use Illuminate\Support\Facades\Mail;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 
-class SuscriberController extends Controller
+class DonationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +15,7 @@ class SuscriberController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.donations.index', ['donations' => Donation::paginate(10)]);
     }
 
     /**
@@ -28,7 +25,7 @@ class SuscriberController extends Controller
      */
     public function create()
     {
-        return view('components.formCreateSubscriber');
+        // return view('admin.donations.create');
     }
 
     /**
@@ -37,38 +34,29 @@ class SuscriberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubscriberRequest $request)
+    public function store(Request $request)
     {
-        $subscriber = Subscriber::create([
-            'email' => $request->email,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'ip' => request()->ip(),
-        ]);
-        $correo = new SubscriberConfirmation($subscriber);
-        Mail::to($request->email)->send($correo);
-
-        return "Mensaje enviado";
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function show(Subscriber $subscriber)
+    public function show(Donation $donation)
     {
-        return $subscriber;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Donation $donation)
     {
         //
     }
@@ -77,10 +65,10 @@ class SuscriberController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Donation $donation)
     {
         //
     }
@@ -88,11 +76,11 @@ class SuscriberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subscriber $subscriber, $hash)
+    public function destroy(Donation $donation)
     {
-
+        //
     }
 }

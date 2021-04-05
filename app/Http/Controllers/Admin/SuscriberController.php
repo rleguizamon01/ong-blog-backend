@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\SubscriberRequest;
-use App\Mail\SubscriberConfirmation;
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
-use Illuminate\Support\Facades\Mail;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 
 class SuscriberController extends Controller
 {
@@ -18,7 +15,7 @@ class SuscriberController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.subscribers.index', ['subscribers' => Subscriber::paginate(10)]);
     }
 
     /**
@@ -28,7 +25,7 @@ class SuscriberController extends Controller
      */
     public function create()
     {
-        return view('components.formCreateSubscriber');
+        //
     }
 
     /**
@@ -37,18 +34,9 @@ class SuscriberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubscriberRequest $request)
+    public function store(Request $request)
     {
-        $subscriber = Subscriber::create([
-            'email' => $request->email,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'ip' => request()->ip(),
-        ]);
-        $correo = new SubscriberConfirmation($subscriber);
-        Mail::to($request->email)->send($correo);
-
-        return "Mensaje enviado";
+        //
     }
 
     /**
@@ -91,8 +79,8 @@ class SuscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subscriber $subscriber, $hash)
+    public function destroy($id)
     {
-
+        //
     }
 }
