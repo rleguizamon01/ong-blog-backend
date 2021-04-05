@@ -46,7 +46,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
         'except' => ['create', 'store']
     ]);
 
-    Route::resource('volunteers', App\Http\Controllers\Admin\VolunteersController::class, [
+    Route::resource('volunteers', App\Http\Controllers\Admin\VolunteerController::class, [
         'except' => ['create', 'store']
     ]);
 
