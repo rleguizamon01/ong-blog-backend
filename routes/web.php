@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +17,7 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
 
 Auth::routes();
 
@@ -42,9 +42,13 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
         'except' => ['create', 'store']
     ]);
 
-    Route::resource('subscribers', App\Http\Controllers\Admin\PostController::class, [
+    Route::get('subscribers/filter', [\App\Http\Controllers\Admin\SubscriberController::class, 'filter'])->name('subscribers.filter');
+
+
+    Route::resource('subscribers', App\Http\Controllers\Admin\SubscriberController::class, [
         'except' => ['create', 'store']
     ]);
+
 
     Route::get('volunteers/filter', [App\Http\Controllers\Admin\VolunteerController::class, 'filter'])->name('volunteers.filter');
     Route::resource('volunteers', App\Http\Controllers\Admin\VolunteerController::class, [
