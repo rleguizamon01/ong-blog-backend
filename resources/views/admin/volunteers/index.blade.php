@@ -5,6 +5,25 @@
         <h2>
             Listado de Voluntarios
         </h2>
+        <form method='GET' action="{{ route('admin.volunteers.filter') }}">
+        <div class="form-row align-items-end">
+            <div class="form-group col-md-2">
+                <label for="status">Estado:</label>
+                <select type="text" name="status" id="status" class="form-control">
+                    <option {{ $estado == 'all' ? "selected" : '' }} value='all' >Todos</option>
+                    <option {{ $estado == 'pending' ? "selected" : '' }} value='pending' >Pendientes</option>
+                    <option {{ $estado == 'accepted' ? "selected" : '' }} value='accepted' >Aceptados</option>
+                    <option {{ $estado == 'rejected' ? "selected" : '' }} value='rejected' >Rechazados</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="filter">Buscar:</label>
+                <input type="text" name="filter" id="filter" class="form-control" value='{{ $filter? $filter : '' }}'>
+            </div>
+            <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+        </div>
         <div class="table-responsive bg-light">
             <table class="table">
                 <thead>
@@ -19,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($volunteers as $volunteer)
+                @forelse ($volunteers as $volunteer)
                     <tr>
                         <td>
                             {{$volunteer->first_name}}
@@ -65,10 +84,15 @@
                         <td>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="6">No hay voluntarios con esas caracteristicas</td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
         <p>{{$volunteers->links()}}</p>
+        </form>
     </div>
 @endsection

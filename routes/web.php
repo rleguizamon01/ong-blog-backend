@@ -46,6 +46,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
         'except' => ['create', 'store']
     ]);
 
+    Route::get('volunteers/filter', [App\Http\Controllers\Admin\VolunteerController::class, 'filter'])->name('volunteers.filter');
     Route::resource('volunteers', App\Http\Controllers\Admin\VolunteerController::class, [
         'except' => ['create', 'store']
     ]);
@@ -60,6 +61,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group( function(){
 
     Route::get('volunteers/approved/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'update'])->name('volunteers.approved');
     Route::get('volunteers/rejected/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.rejected');
+
 });
 
 Route::get('/approved/{post}', [App\Http\Controllers\PostApprovalController::class, 'publish'])->name('posts.publish');
