@@ -18,7 +18,11 @@ class VolunteerController extends Controller
 
     public function index()
     {
-        return view('admin.volunteers.index', ['volunteers' => Volunteer::paginate(10)]);
+        return view('admin.volunteers.index', [
+            'volunteers' => Volunteer::orderBy('status', 'asc')->orderBy('reviewed_at', 'desc')->paginate(10),
+            'estado' => 'all',
+            'filter' => ''
+        ]);
     }
 
     public function create()
@@ -42,12 +46,12 @@ class VolunteerController extends Controller
         return view('admin.volunteers.show', ['volunteer' => $volunteer]);
     }
 
-    public function edit($id)
+    public function edit(Volunteer $volunteer)
     {
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Volunteer $volunteer)
     {
         //
     }
@@ -56,5 +60,24 @@ class VolunteerController extends Controller
     {
         $volunteer->delete();
         return redirect()->back();
+    }
+
+    public function filter(Request $request)
+    {
+        $status = $request->status;
+        $filter = $request->filter;
+
+        $volunteers = Volunteer::where(function ($query,) use ($filter){
+            $query->where('first_name', 'like', '%' . $filter . '%')
+                ->orWhere('last_name', 'like', '%' . $filter . '%')
+                ->orWhere('email', 'like', '%' . $filter . '%');
+        });
+        if ($status <> 'all') {
+            $volunteers->where('status', $status);
+        }
+        $volunteers = $volunteers->paginate(4);
+
+        $volunteers->appends(['status' => $status, 'filter' => $filter]);
+        return view('admin.volunteers.index', ['volunteers' => $volunteers, 'estado' => $status, 'filter' => $filter]);
     }
 }

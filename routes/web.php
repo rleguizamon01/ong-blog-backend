@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +18,7 @@ Route::get('/', function () {
     return view('website.welcome');
 });
 
+
 Auth::routes();
 
 Route::get('/home', function () {
@@ -32,6 +32,7 @@ Route::resource('/posts/{post}/comments', CommentController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
 Route::resource('donations', App\Http\Controllers\DonationController::class);
 
+
 Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::class, 'index'])->name('categories.posts.index');
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
@@ -43,6 +44,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('subscribers', App\Http\Controllers\Admin\SuscriberController::class, [
         'except' => ['create', 'store']
     ]);
+
+    Route::get('subscribers/filter', [\App\Http\Controllers\Admin\SubscriberController::class, 'filter'])->name('subscribers.filter');
+
+    Route::delete('subscribers/destroyall', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroyAll'])->name('subscribers.destroyAll');
+
+    Route::get('volunteers/filter', [App\Http\Controllers\Admin\VolunteerController::class, 'filter'])->name('volunteers.filter');
 
     Route::resource('volunteers', App\Http\Controllers\Admin\VolunteerController::class, [
         'except' => ['create', 'store']
@@ -62,4 +69,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::get('volunteers/approved/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'update'])->name('volunteers.approved');
     Route::get('volunteers/rejected/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.rejected');
+
 });

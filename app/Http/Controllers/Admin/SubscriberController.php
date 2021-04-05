@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\SubscriberRequest;
-use App\Mail\SubscriberConfirmation;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
-use Illuminate\Support\Facades\Mail;
-use App\Models\User;
 
-class SuscriberController extends Controller
+class SubscriberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +15,7 @@ class SuscriberController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.subscribers.index', ['subscribers' => Subscriber::withTrashed()->paginate(10), 'status' => 'all']);
     }
 
     /**
@@ -28,7 +25,7 @@ class SuscriberController extends Controller
      */
     public function create()
     {
-        return view('components.formCreateSubscriber');
+        //
     }
 
     /**
@@ -37,18 +34,9 @@ class SuscriberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubscriberRequest $request)
+    public function store(Request $request)
     {
-        $subscriber = Subscriber::create([
-            'email' => $request->email,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'ip' => request()->ip(),
-        ]);
-        $correo = new SubscriberConfirmation($subscriber);
-        Mail::to($request->email)->send($correo);
-
-        return "Mensaje enviado";
+        //
     }
 
     /**
@@ -91,8 +79,26 @@ class SuscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subscriber $subscriber, $hash)
+    public function destroy(Subscriber $subscriber)
     {
+        $subscriber->delete();
+        return redirect(route('admin.subscribers.index'))->with('deleted', $subscriber->email);
+    }
 
+    public function filter(Request $request)
+    {
+        $status = $request['status'];
+        $filter = $request['filter'];
+
+        return view('admin.subscribers.index', ['subscribers' => Subscriber::byStatus($status)->search($filter)->paginate(10), 'status' => $status]);
+    }
+    public function destroyAll(Request $request){
+        $request->validate([
+            'id' => 'required',
+        ]);
+    foreach ($request->id as $sub){
+        Subscriber::destroy($sub);
+    }
+        return redirect(route('admin.subscribers.index'))->with('alert','Los suscriptores han sido eliminados');
     }
 }

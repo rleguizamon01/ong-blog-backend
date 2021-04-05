@@ -1,43 +1,107 @@
 @extends('admin.layout')
-
 @section('title', 'Suscriptores')
-
 @section('content')
+    @if (Session::has('deleted'))
+        <div class="alert alert-warning" role="alert"> Se ha eliminado a {{session('deleted')}} </div>
+    @endif
 
-    <div class="container">
-        <div class="row mt-4 row-cols-1 row-cols-md-2">
-            @foreach($subscribers as $subscriber)
-                <div class="col">
-                    <div class="card mb-5 pr-5 pl-5">
-                        <div class="card-body">
-                            <!-- Names -->
-                            <a href="{{ route('subscribers.show', $subscriber->id) }}" class="text-decoration-none">
-                                <h5 class="card-title"> {{ $subscriber->first_name }} {{$subscriber->last_name}} </h5>
-                            </a>
-                            <h6 class="card-subtitle mb-2 mt-2 text-muted"> {{ $subscriber->email }}</h6>
-                            <div class="d-flex justify-content-between mt-2 mb-2">
-                                <!-- Date -->
-                                <div class="text-uppercase text-muted font-monospace">
-                                    {{ $subscriber->created_at->format('d M Y') }}
-                                </div>
-                            </div>
-                            <!-- Subscriber details, edit and delete -->
-                            <form method="POST" action="{{ route('subscribers.destroy', $subscriber->id) }}">
-                                @METHOD('delete')
-                                @csrf
-                                <a href="{{ route('subscribers.show', $subscriber->id) }}" class="btn btn-primary">Detalles</a>
-                                <a href="{{ route('subscribers.edit', $subscriber->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                                <button type="submit" class="btn btn-danger"> <i class="fa fa-trash"></i> </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+    @if (session('alert'))
+        <div class="alert alert-success">
+            {{ session('alert') }}
         </div>
-    </div>
+    @endif
 
-    <div class="d-flex justify-content-center mb-4">
-            {{ $subscribers->links('pagination::bootstrap-4') }}
-    </div>
+    @error('id')
+    <div class="alert alert-danger">Seleccione al menos un suscriptor</div>
+    @enderror
 
+    <div class="m-4">
+        <h2>
+            Listado de Suscriptores
+        </h2>
+        <form method='GET' action="{{route('admin.subscribers.filter')}}">
+            <div class="form-row align-items-end">
+                <div class="form-group col-md-2">
+                    <label for="status">Estado:</label>
+                    <select type="text" name="status" id="status" class="form-control">
+                        <option {{ $status == 'all' ? "selected " : '' }} value='all'>Todos</option>
+                        <option {{ $status == 'active' ? "selected " : '' }}value='active'>Activos</option>
+                        <option {{ $status == 'delete' ? "selected " : '' }}value='delete'>Eliminados</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="filter">Buscar:</label>
+                    <input type="text" name="filter" id="filter" class="form-control" value=''>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
+                <div class="form-group col-md-3">
+                    <button form="delete-all" type="submit" class="btn btn-danger"><i class="far fa-trash-alt"> Eliminar
+                            seleccionados</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <form id="delete-all" action="{{route('admin.subscribers.destroyAll')}}" method="POST">
+            @csrf
+            @method('delete')
+            <div class="table-responsive bg-light">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Email</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($subscribers as $subscriber)
+                        <tr>
+                            <td>
+                                @if (!$subscriber->deleted_at)
+                                    <input class="form-check-input" name="id[]" type="checkbox"
+                                           value="{{$subscriber->id}}" id="checked">
+                                @endif
+                            </td>
+                            <td>
+                                {{$subscriber->email}}
+                            </td>
+                            <td>
+                                {{$subscriber->first_name}}
+                            </td>
+                            <td>
+                                {{$subscriber->last_name}}
+                            </td>
+                            <td>
+                                {{$subscriber->status()}}
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <i class="btn btn-primary fas fa-edit" aria-hidden="true"></i>
+                                </a>
+                                @if (!$subscriber->deleted_at)
+                                    <form id="delete-{{$subscriber->id}}" class="d-inline-flex"
+                                          action="{{route('admin.subscribers.destroy', ['subscriber' => $subscriber->id])}}"
+                                          method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button form="delete-{{$subscriber->id}}" type="submit" class="btn btn-danger">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        <p>{{$subscribers->links()}}</p>
+    </div>
 @endsection
