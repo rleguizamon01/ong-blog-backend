@@ -7,6 +7,7 @@ use App\Mail\SubscriberConfirmation;
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
 use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
 class SuscriberController extends Controller
 {
@@ -90,8 +91,8 @@ class SuscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Subscriber $subscriber, $hash)
     {
-        //
+
     }
 }
