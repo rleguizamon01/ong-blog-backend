@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\Volunteer;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -11,16 +11,16 @@ class VolunteerApproved extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $first_name;
+    public $volunteer;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($first_name)
+    public function __construct(Volunteer $volunteer)
     {
-        $this->first_name = $first_name;
+        $this->volunteer = $volunteer;
     }
 
     /**
@@ -30,10 +30,11 @@ class VolunteerApproved extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.volunteers.approved',
-        [
-            'name' => $this->first_name,
+        return $this->markdown('emails.volunteers.approved', [
+            'name' => $this->volunteer->first_name,
             'url' => route('home'),
-        ])->subject("Solicitud de Voluntario aceptada");
+        ])
+            ->to($this->volunteer->email)
+            ->subject("Solicitud de Voluntario aceptada");
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DonationFilterRequest;
 use App\Models\Donation;
 use Illuminate\Http\Request;
-use App\Http\Requests\DonationFilterRequest;
 
 class DonationController extends Controller
 {
@@ -15,27 +15,18 @@ class DonationController extends Controller
 
     public function index(DonationFilterRequest $request)
     {
-        if($request->query('from_date') && $request->query('to_date')){
-            $donations = Donation::whereBetween('created_at', [$request->query('from_date'), $request->query('to_date')]);
-                        
-            if($request->query('order') == 'asc'){
-                $donations->orderBy('amount', 'ASC');
-            }      
-            elseif($request->query('order') == 'desc'){
-                $donations->orderBy('amount', 'DESC');
-            }   
-        }
-        elseif($request->query('order') == 'asc'){
-            $donations = Donation::orderBy('amount', 'ASC');
-        } 
-        elseif($request->query('order') == 'desc'){
-            $donations = Donation::orderBy('amount', 'DESC');
-        }
-        else{
-            $donations = Donation::latest();
+        $query = Donation::query();
+
+        if ($request->has('from_date') && $request->has('to_date')) {
+            $query->whereBetween('created_at', [
+                $request->query('from_date'),
+                $request->query('to_date')
+            ]);
         }
 
-        return view('admin.donations.index', ['donations' => $donations->paginate(10)->withQueryString()]);
+        $query->orderBy('amount', $request->query('order', 'desc'));
+
+        return view('admin.donations.index', ['donations' => $query->paginate(10)->withQueryString()]);
     }
 
     public function create()
@@ -66,21 +57,5 @@ class DonationController extends Controller
     public function destroy(Donation $donation)
     {
         //
-    }
-    
-    public function indexAsc(){
-        $this->authorize('viewAny', Donation::class);
-
-        $donations = Donation::orderBy('amount', 'ASC')->paginate(10);
-
-        return view('admin.donations.index', ['donations' => $donations]);
-    }
-
-    public function indexDesc(){
-        $this->authorize('viewAny', Donation::class);
-
-        $donations = Donation::orderBy('amount', 'DESC')->paginate(10);
-
-        return view('admin.donations.index', ['donations' => $donations]);
     }
 }

@@ -13,7 +13,10 @@ class PostApprovalController extends Controller
     public function publish(Post $post)
     {
         //dar de alta el post
+        $post->update([
+            'approved_at' => now()
+        ]);
 
-        Mail::to($post->user->email)->queue(new PostApproved($post));
+        Mail::queue(new PostApproved($post));
     }
 }

@@ -12,12 +12,12 @@ class DonationPolicy
 
     public function viewAny(User $user)
     {
-        return $user->role == 'admin';
+        return $user->isAdmin();
     }
 
     public function view(User $user, Donation $donation)
     {
-        return $user->role == 'admin';
+        return $user->isAdmin();
     }
 
     public function create(?User $user)
@@ -27,11 +27,11 @@ class DonationPolicy
 
     public function update(User $user, Donation $donation)
     {
-        return $user->role == 'admin';
+        return $user->isAdmin();
     }
 
     public function delete(User $user, Donation $donation)
     {
-        return $user->role == 'admin';
+        return $user->isAdmin();
     }
 }

@@ -2,9 +2,8 @@
 
 namespace App\Mail;
 
-use App\Http\Requests\VolunteerRequest;
+use App\Models\Volunteer;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -12,16 +11,16 @@ class VolunteerConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $first_name;
+    public $volunteer;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($first_name)
+    public function __construct(Volunteer $volunteer)
     {
-        $this->first_name = $first_name;
+        $this->volunteer = $volunteer;
     }
 
     /**
@@ -32,9 +31,10 @@ class VolunteerConfirmation extends Mailable
     public function build()
     {
         return $this->markdown('emails.volunteers.confirmation')
-                    ->with([
-                        'first_name' => $this->first_name,
-                        'url' => route('home'),
-                        ]);
+            ->to($this->volunteer->email)
+            ->with([
+                'first_name' => $this->volunteer->first_name,
+                'url' => route('home'),
+            ]);
     }
 }

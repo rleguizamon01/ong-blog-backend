@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SubscriberRequest;
 use App\Mail\SubscriberConfirmation;
-use Illuminate\Http\Request;
 use App\Models\Subscriber;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Models\User;
 
 class SuscriberController extends Controller
 {
@@ -34,7 +33,7 @@ class SuscriberController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(SubscriberRequest $request)
@@ -45,16 +44,16 @@ class SuscriberController extends Controller
             'last_name' => $request->last_name,
             'ip' => request()->ip(),
         ]);
-        $correo = new SubscriberConfirmation($subscriber);
-        Mail::to($request->email)->send($correo);
 
-        return "Mensaje enviado";
+        Mail::send(new SubscriberConfirmation($subscriber));
+
+        return redirect()->to('/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Subscriber $subscriber)
@@ -65,7 +64,7 @@ class SuscriberController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -76,8 +75,8 @@ class SuscriberController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -88,7 +87,7 @@ class SuscriberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Subscriber $subscriber, $hash)

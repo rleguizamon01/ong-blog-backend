@@ -24,9 +24,9 @@
                 <div class="form-group col-md-2">
                     <label for="status">Estado:</label>
                     <select type="text" name="status" id="status" class="form-control">
-                        <option {{ $status == 'all' ? "selected " : '' }} value='all'>Todos</option>
-                        <option {{ $status == 'active' ? "selected " : '' }}value='active'>Activos</option>
-                        <option {{ $status == 'delete' ? "selected " : '' }}value='delete'>Eliminados</option>
+                        <option {{ $status == 'all' ? "selected" : '' }} value='all'>Todos</option>
+                        <option {{ $status == 'active' ? "selected" : '' }}value='active'>Activos</option>
+                        <option {{ $status == 'delete' ? "selected" : '' }}value='delete'>Eliminados</option>
                     </select>
                 </div>
                 <div class="form-group col-md-5">
@@ -78,7 +78,7 @@
                                 {{$subscriber->last_name}}
                             </td>
                             <td>
-                                {{$subscriber->status()}}
+                                {{$subscriber->deleted_at ? 'eliminado' : 'activo'}}
                             </td>
                             <td>
                                 <a href="#">

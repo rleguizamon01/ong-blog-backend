@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -18,14 +19,16 @@ class PostController extends Controller
     {
         $this->authorizeResource(Post::class, 'post');
     }
-    public function index(Category $category)
+
+    public function index(Request $request)
     {
-        if ($category->exists) {
-            $posts = Post::where('category_id', $category->id)->with('category', 'user')->latest()->paginate(10);
-        } else {
-            $posts = Post::with('category', 'user')->latest()->paginate(10);
+        $query = Post::with('category', 'user')->latest();
+
+        if ($request->has('category_id')) {
+            $query->where('category_id', $request->query('category_id'));
         }
-        return view('website.posts.index', ['posts' => $posts]);
+
+        return view('website.posts.index', ['posts' => $query->paginate(10)]);
     }
 
     /**
@@ -47,17 +50,11 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $data = $request->merge([
-            'user_id' => Auth::id(),
-        ]);
-
-        if ($request->hasFile('photo')) {
-            $request->file('photo')->store('images');
-        }
-
-        $post = Post::create($data->all());
-
-        return $post;
+        return auth()->user()->posts()->create(
+            $request->merge([
+                'photo' => $request->hasFile('photo') ? $request->file('photo')->store('images') : null
+            ])
+        );
     }
 
     /**
@@ -71,8 +68,8 @@ class PostController extends Controller
         $post = $post->load(['comments' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }]);
-//        ddd($post);
-        return view('posts.show',['post' => $post]);
+
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
@@ -101,6 +98,7 @@ class PostController extends Controller
         }
         $data = $request->merge(['user_id' => Auth::id()]);
         $post->update($data->all());
+
         return $post;
     }
 

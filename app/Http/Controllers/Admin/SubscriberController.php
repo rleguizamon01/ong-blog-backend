@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Subscriber;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubscriberController extends Controller
 {
@@ -15,7 +16,12 @@ class SubscriberController extends Controller
      */
     public function index()
     {
-        return view('admin.subscribers.index', ['subscribers' => Subscriber::withTrashed()->paginate(10), 'status' => 'all']);
+        return view('admin.subscribers.index', [
+            'subscribers' => Subscriber::withTrashed()->byStatus($request->get('status'))
+                ->search($request->input('filter'))
+                ->paginate(10),
+            'status' => $request->get('status'),
+        ]);
     }
 
     /**
@@ -31,7 +37,7 @@ class SubscriberController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -42,7 +48,7 @@ class SubscriberController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Subscriber $subscriber)
@@ -53,7 +59,7 @@ class SubscriberController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -64,8 +70,8 @@ class SubscriberController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -76,29 +82,17 @@ class SubscriberController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subscriber $subscriber)
+    public function destroy(Subscriber $subscriber, Request $request)
     {
-        $subscriber->delete();
+        if ($request->boolean('all')) {
+            DB::table('subscribers')->truncate();
+        } else {
+            $subscriber->delete();
+        }
+
         return redirect(route('admin.subscribers.index'))->with('deleted', $subscriber->email);
-    }
-
-    public function filter(Request $request)
-    {
-        $status = $request['status'];
-        $filter = $request['filter'];
-
-        return view('admin.subscribers.index', ['subscribers' => Subscriber::byStatus($status)->search($filter)->paginate(10), 'status' => $status]);
-    }
-    public function destroyAll(Request $request){
-        $request->validate([
-            'id' => 'required',
-        ]);
-    foreach ($request->id as $sub){
-        Subscriber::destroy($sub);
-    }
-        return redirect(route('admin.subscribers.index'))->with('alert','Los suscriptores han sido eliminados');
     }
 }

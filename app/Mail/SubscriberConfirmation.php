@@ -31,6 +31,7 @@ class SubscriberConfirmation extends Mailable
     public function build()
     {
         return $this->markdown('emails.subscribers.confirm')
+            ->to($this->subscriber->email)
             ->with([
                 'url' => route('welcome'),
             ]);

@@ -25,18 +25,15 @@ Route::get('/home', function () {
     return view('website.welcome');
 })->name('home');
 
-Route::resource('volunteers', App\Http\Controllers\VolunteerController::class);
-Route::resource('posts', App\Http\Controllers\PostController::class);
-Route::resource('subscribers', App\Http\Controllers\SuscriberController::class);
-Route::resource('/posts/{post}/comments', CommentController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
-Route::resource('donations', App\Http\Controllers\DonationController::class);
-
-
 Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::class, 'index'])->name('categories.posts.index');
+Route::resource('donations', App\Http\Controllers\DonationController::class);
+Route::resource('posts', App\Http\Controllers\PostController::class);
+Route::resource('posts/{post}/comments', CommentController::class);
+Route::resource('subscribers', App\Http\Controllers\SuscriberController::class);
+Route::resource('volunteers', App\Http\Controllers\VolunteerController::class);
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-
     Route::resource('posts', App\Http\Controllers\Admin\PostController::class, [
         'except' => ['create', 'store']
     ]);
@@ -47,9 +44,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::get('subscribers/filter', [\App\Http\Controllers\Admin\SubscriberController::class, 'filter'])->name('subscribers.filter');
 
-    Route::delete('subscribers/destroyall', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroyAll'])->name('subscribers.destroyAll');
+    Route::delete('subscribers/{subscriber}', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroy'])->name('subscribers.destroyAll');
 
-    Route::get('volunteers/filter', [App\Http\Controllers\Admin\VolunteerController::class, 'filter'])->name('volunteers.filter');
+    Route::get('volunteers', [App\Http\Controllers\Admin\VolunteerController::class, 'index'])->name('volunteers.filter');
 
     Route::resource('volunteers', App\Http\Controllers\Admin\VolunteerController::class, [
         'except' => ['create', 'store']
@@ -65,9 +62,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
 
-    Route::get('posts/approved/{post}', [App\Http\Controllers\Admin\PostApprovalController::class, 'publish'])->name('posts.publish');
+    Route::get('posts/{post}/approved', [App\Http\Controllers\Admin\PostApprovalController::class, 'publish'])->name('posts.publish');
 
-    Route::get('volunteers/approved/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'update'])->name('volunteers.approved');
-    Route::get('volunteers/rejected/{volunteer}', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.rejected');
-
+    Route::get('volunteers/{volunteer}/approved', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'update'])->name('volunteers.approved');
+    Route::get('volunteers/{volunteer}/rejected', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.rejected');
 });

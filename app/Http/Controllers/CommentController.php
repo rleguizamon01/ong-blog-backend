@@ -18,7 +18,9 @@ class CommentController extends Controller
      */
     public function index(Post $post)
     {
-        return view('website.comments.index', ['comments' => Comment::paginate(10)]);
+        return view('website.comments.index', [
+            'comments' => $post->comments
+        ]);
     }
 
     /**
@@ -40,14 +42,13 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request, Post $post)
     {
-        $comment = Comment::create([
-            'email' => $request->email,
-            'ip' => request()->ip(),
-            'body' => $request->body,
-            'post_id' => $post->id,
+        $post->comments()->create([
+            'email' => $request->input('email'),
+            'ip' => $request->ip(),
+            'body' => $request->input('body'),
         ]);
 
-        return redirect()->route('posts.show',$post->id);
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -70,6 +71,7 @@ class CommentController extends Controller
     public function edit(Post $post, Comment $comment)
     {
         $this->authorize('update-comment', $comment);
+
         return view('website.comments.edit', [
             'post' => $post,
             'comment' => $comment,
@@ -86,8 +88,11 @@ class CommentController extends Controller
     public function update(Request $request, Post $post, Comment $comment)
     {
         $this->authorize('update-comment', $comment);
-        $comment->update($request->all());
-        $comment->ip = request()->ip();
+
+        $comment->update(
+            $request->merge(['ip' => $request->ip()])
+        );
+
         return $comment;
     }
 
@@ -100,7 +105,9 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $this->authorize('delete-comment', $comment);
+
         $comment->delete();
+
         return back();
     }
 }

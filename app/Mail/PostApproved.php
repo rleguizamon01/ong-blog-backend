@@ -38,6 +38,7 @@ class PostApproved extends Mailable
                 'title' => $this->post->title
             ]
         )
+            ->to($this->post->user->email)
             ->subject("Post aceptado");
     }
 }

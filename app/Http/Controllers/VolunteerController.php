@@ -27,11 +27,9 @@ class VolunteerController extends Controller
 
     public function store(VolunteerRequest $request)
     {
-        $volunteer = new Volunteer;
-        $volunteer->create($request->all());
+        $volunteer = Volunteer::create($request->all());
 
-        Mail::to(request('email'))
-            ->send(new VolunteerConfirmation($request->first_name));
+        Mail::send(new VolunteerConfirmation($volunteer));
 
         return redirect()->back()->withSuccess('Inscripto como voluntario exitosamente');
     }
