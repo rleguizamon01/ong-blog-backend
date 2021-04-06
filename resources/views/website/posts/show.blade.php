@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('website.layout')
 @section('title') {{$post->title}}@endsection
 @section('content')
     <main class="post blog-post col-lg-10">
@@ -43,7 +43,7 @@
                         @endforeach
 
                     <div class="add-comment">
-                        @include('comments.create', ['post' => $post])
+                        @include('website.comments.create', ['post' => $post])
                     </div>
 
                 </div>
