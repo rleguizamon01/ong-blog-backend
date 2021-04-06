@@ -31,7 +31,7 @@ class VolunteerRejected extends Mailable
     public function build()
     {
         return $this->markdown('emails.volunteers.rejected', [
-            'name' => $this->first_name,
+            'name' => $this->volunteer->first_name,
             'url' => route('home'),
         ])
             ->to($this->volunteer->email)

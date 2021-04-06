@@ -5,7 +5,7 @@
         <h2>
             Listado de Voluntarios
         </h2>
-        <form method='GET' action="{{ route('admin.volunteers.filter') }}">
+        <form method='GET' action="{{ route('admin.volunteers.index') }}">
         <div class="form-row align-items-end">
             <div class="form-group col-md-2">
                 <label for="status">Estado:</label>
@@ -71,12 +71,12 @@
                         </td>
                         <td class="d-flex justify-content-center">
                             @unless ( $volunteer->status === 'accepted')
-                            <a href="{{route('admin.volunteers.approved', ['volunteer' => $volunteer])}}">
+                            <a href="{{route('admin.volunteers.approve', ['volunteer' => $volunteer])}}">
                                 <i class="btn fas fa-check text-success" aria-hidden="true"></i>
                             </a>
                             @endunless
                             @unless ( $volunteer->status === 'rejected')
-                            <a href="{{route('admin.volunteers.rejected', ['volunteer' => $volunteer])}}">
+                            <a href="{{route('admin.volunteers.reject', ['volunteer' => $volunteer])}}">
                                 <i class="btn fas fa-times text-danger" aria-hidden="true"></i>
                             </a>
                             @endunless
