@@ -6,24 +6,25 @@
             Listado de Voluntarios
         </h2>
         <form method='GET' action="{{ route('admin.volunteers.index') }}">
-        <div class="form-row align-items-end">
-            <div class="form-group col-md-2">
-                <label for="status">Estado:</label>
-                <select type="text" name="status" id="status" class="form-control">
-                    <option {{ $estado == 'all' ? "selected" : '' }} value='all' >Todos</option>
-                    <option {{ $estado == 'pending' ? "selected" : '' }} value='pending' >Pendientes</option>
-                    <option {{ $estado == 'accepted' ? "selected" : '' }} value='accepted' >Aceptados</option>
-                    <option {{ $estado == 'rejected' ? "selected" : '' }} value='rejected' >Rechazados</option>
-                </select>
+            <div class="form-row align-items-end">
+                <div class="form-group col-md-2">
+                    <label for="status">Estado:</label>
+                    <select type="text" name="status" id="status" class="form-control">
+                        <option {{ $estado == 'all' ? "selected" : '' }} value='all' >Todos</option>
+                        <option {{ $estado == 'pending' ? "selected" : '' }} value='pending' >Pendientes</option>
+                        <option {{ $estado == 'accepted' ? "selected" : '' }} value='accepted' >Aceptados</option>
+                        <option {{ $estado == 'rejected' ? "selected" : '' }} value='rejected' >Rechazados</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="filter">Buscar:</label>
+                    <input type="text" name="filter" id="filter" class="form-control" value='{{ $filter? $filter : '' }}'>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label for="filter">Buscar:</label>
-                <input type="text" name="filter" id="filter" class="form-control" value='{{ $filter? $filter : '' }}'>
-            </div>
-            <div class="form-group col-md-2">
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-            </div>
-        </div>
+        </form>
         <div class="table-responsive bg-light">
             <table class="table">
                 <thead>
@@ -71,14 +72,22 @@
                         </td>
                         <td class="d-flex justify-content-center">
                             @unless ( $volunteer->status === 'accepted')
-                            <a href="{{route('admin.volunteers.approve', ['volunteer' => $volunteer])}}">
-                                <i class="btn fas fa-check text-success" aria-hidden="true"></i>
-                            </a>
+                            <form method='POST' action="{{ route('admin.volunteers.approve', ['volunteer' => $volunteer]) }}">
+                                @csrf
+                                @method('patch')
+                                <button class="btn btn-link">
+                                    <i class="btn fas fa-check text-success" aria-hidden="true"></i>
+                                </button>
+                            </form>
                             @endunless
                             @unless ( $volunteer->status === 'rejected')
-                            <a href="{{route('admin.volunteers.reject', ['volunteer' => $volunteer])}}">
-                                <i class="btn fas fa-times text-danger" aria-hidden="true"></i>
-                            </a>
+                            <form method='POST' action="{{ route('admin.volunteers.reject', ['volunteer' => $volunteer]) }}">
+                                @csrf
+                                @method('patch')
+                                <button class="btn btn-link">
+                                    <i class="btn fas fa-times text-danger" aria-hidden="true"></i>
+                                </button>
+                            </form>
                             @endunless
                         </td>
                         <td>
@@ -93,6 +102,5 @@
             </table>
         </div>
         <p>{{$volunteers->links()}}</p>
-        </form>
     </div>
 @endsection

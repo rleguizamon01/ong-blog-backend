@@ -64,6 +64,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::get('posts/{post}/approved', [App\Http\Controllers\Admin\PostApprovalController::class, 'publish'])->name('posts.publish');
 
-    Route::get('volunteers/{volunteer}/approve', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'approve'])->name('volunteers.approve');
-    Route::get('volunteers/{volunteer}/reject', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.reject');
+    Route::patch('volunteers/{volunteer}/approve', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'approve'])->name('volunteers.approve');
+    Route::patch('volunteers/{volunteer}/reject', [App\Http\Controllers\Admin\VolunteerApprovalController::class, 'reject'])->name('volunteers.reject');
 });
