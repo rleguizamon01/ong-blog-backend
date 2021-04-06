@@ -24,6 +24,8 @@ class Subscriber extends Model
                 return $query->withTrashed();
             case 'delete':
                 return $query->onlyTrashed();
+            case 'active':
+                return $query->whereNull('deleted_at');
         }
     }
 
