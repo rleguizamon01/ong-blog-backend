@@ -67,7 +67,7 @@ class VolunteerController extends Controller
         $status = $request->status;
         $filter = $request->filter;
 
-        $volunteers = Volunteer::where(function ($query,) use ($filter){
+        $volunteers = Volunteer::where(function ($query) use ($filter) {
             $query->where('first_name', 'like', '%' . $filter . '%')
                 ->orWhere('last_name', 'like', '%' . $filter . '%')
                 ->orWhere('email', 'like', '%' . $filter . '%');
