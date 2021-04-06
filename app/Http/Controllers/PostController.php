@@ -69,7 +69,7 @@ class PostController extends Controller
             $query->orderBy('created_at', 'desc');
         }]);
 
-        return view('website.posts.show', ['post' => $post]);
+        return view('common.posts.show', ['post' => $post]);
     }
 
     /**
