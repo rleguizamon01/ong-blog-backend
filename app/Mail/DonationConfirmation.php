@@ -32,6 +32,7 @@ class DonationConfirmation extends Mailable
     public function build()
     {
         return $this->markdown('emails.donations.confirm')
-        ->with(['url' => route('home')]);
+            ->to($this->donation->email)
+            ->with(['url' => route('home')]);
     }
 }

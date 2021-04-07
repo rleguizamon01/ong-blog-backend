@@ -5,17 +5,36 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DonationFilterRequest;
+use App\Http\Requests\DonationRequest;
 
 class DonationController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Donation::class, 'donation');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(DonationFilterRequest $request)
     {
-        return view('admin.donations.index', ['donations' => Donation::paginate(10)]);
+        $query = Donation::query();
+
+        if ($request->has('from_date') && $request->has('to_date')) {
+            $query->whereBetween('created_at', [
+                $request->query('from_date'),
+                $request->query('to_date')
+            ]);
+        }
+
+        $query->orderBy('amount', $request->query('order', 'desc'));
+
+        return view('admin.donations.index', ['donations' => $query->paginate(10)->withQueryString()]);
     }
 
     /**
@@ -25,7 +44,7 @@ class DonationController extends Controller
      */
     public function create()
     {
-        // return view('admin.donations.create');
+        //
     }
 
     /**
@@ -47,7 +66,7 @@ class DonationController extends Controller
      */
     public function show(Donation $donation)
     {
-        //
+        return view('admin.donations.show', ['donation' => $donation]);
     }
 
     /**
