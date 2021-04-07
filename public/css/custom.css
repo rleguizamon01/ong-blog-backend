@@ -68,3 +68,7 @@ section.board .container {
         font-size: 0.75em;
     }
 }
+
+#clearSearch.btn{
+        box-shadow: none;
+}
