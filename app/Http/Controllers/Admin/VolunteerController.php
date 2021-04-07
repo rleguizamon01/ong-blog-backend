@@ -16,29 +16,34 @@ class VolunteerController extends Controller
         $this->authorizeResource(Volunteer::class, 'volunteer');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.volunteers.index', [
-            'volunteers' => Volunteer::orderBy('status', 'asc')->orderBy('reviewed_at', 'desc')->paginate(10),
-            'estado' => 'all',
-            'filter' => ''
-        ]);
+        $status = $request->query('status');
+        $filter = $request->query('filter');
+
+        $query = Volunteer::orderBy('status', 'asc')->orderBy('reviewed_at', 'desc');
+
+        if ($request->has('status') && $status != 'all') {
+            $query->where('status', $status);
+        }
+        if ($request->has('filter')) {
+            $query->where(function ($q) use ($filter) {
+                $q->where('first_name', 'like', '%' . $filter . '%')
+                    ->orWhere('last_name', 'like', '%' . $filter . '%')
+                    ->orWhere('email', 'like', '%' . $filter . '%');
+            });
+        }
+        $volunteers = $query->paginate(10)->withQueryString();
+
+        return view('admin.volunteers.index', ['volunteers' => $volunteers, 'estado' => $status, 'filter' => $filter]);
     }
 
     public function create()
     {
-        // return view('admin.volunteers.create');
     }
 
     public function store(VolunteerRequest $request)
     {
-        // $volunteer = new Volunteer;
-        // $volunteer->create($request->all());
-
-        // Mail::to(request('email'))
-        //     ->send(new VolunteerConfirmation($request->first_name));
-
-        // return redirect()->back()->withSuccess('Inscripto como voluntario exitosamente');
     }
 
     public function show(Volunteer $volunteer)
@@ -60,24 +65,5 @@ class VolunteerController extends Controller
     {
         $volunteer->delete();
         return redirect()->back();
-    }
-
-    public function filter(Request $request)
-    {
-        $status = $request->status;
-        $filter = $request->filter;
-
-        $volunteers = Volunteer::where(function ($query,) use ($filter){
-            $query->where('first_name', 'like', '%' . $filter . '%')
-                ->orWhere('last_name', 'like', '%' . $filter . '%')
-                ->orWhere('email', 'like', '%' . $filter . '%');
-        });
-        if ($status <> 'all') {
-            $volunteers->where('status', $status);
-        }
-        $volunteers = $volunteers->paginate(4);
-
-        $volunteers->appends(['status' => $status, 'filter' => $filter]);
-        return view('admin.volunteers.index', ['volunteers' => $volunteers, 'estado' => $status, 'filter' => $filter]);
     }
 }

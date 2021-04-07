@@ -57,7 +57,7 @@ class PostController extends Controller
         $post = $post->load(['comments' => function ($query) {
             $query->orderBy('created_at', 'desc');
         }]);
-        return $post;
+        return view('common.posts.show', ['post' => $post]);
     }
 
     /**

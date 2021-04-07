@@ -4,7 +4,7 @@
     <div class="my-4">
         <h5>Donaciones</h5>
 
-        <form method='GET' action="{{ route('donations.index') }}">
+        <form method='GET' action="{{ route('admin.donations.index') }}">
             <div class="row">
                 <!-- From date input -->
                 <div class="col-sm form-group">
@@ -72,7 +72,7 @@
             @foreach ($donations as $donation)
                 <tr>
                     <th>
-                        <a href="{{ route('donations.show', $donation->id) }}">
+                        <a href="{{ route('admin.donations.show', $donation->id) }}">
                             {{$donation->email}}
                         </a>
                     </th>

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Mail;
 
 class VolunteerApprovalController extends Controller
 {
-    public function update(Volunteer $volunteer)
+    public function approve(Volunteer $volunteer)
     {
         $volunteer->status = 'accepted';
         $volunteer->reviewed_at = now();

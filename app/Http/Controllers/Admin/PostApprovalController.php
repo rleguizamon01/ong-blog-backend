@@ -12,7 +12,6 @@ class PostApprovalController extends Controller
 {
     public function publish(Post $post)
     {
-        //dar de alta el post
         $post->update([
             'approved_at' => now()
         ]);

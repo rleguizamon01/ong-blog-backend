@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DonationFilterRequest;
+use App\Http\Requests\DonationRequest;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DonationConfirmation;
 
 class DonationController extends Controller
 {
@@ -15,18 +18,7 @@ class DonationController extends Controller
 
     public function index(DonationFilterRequest $request)
     {
-        $query = Donation::query();
-
-        if ($request->has('from_date') && $request->has('to_date')) {
-            $query->whereBetween('created_at', [
-                $request->query('from_date'),
-                $request->query('to_date')
-            ]);
-        }
-
-        $query->orderBy('amount', $request->query('order', 'desc'));
-
-        return view('admin.donations.index', ['donations' => $query->paginate(10)->withQueryString()]);
+        //
     }
 
     public function create()
@@ -34,14 +26,18 @@ class DonationController extends Controller
         return view('website.donations.create');
     }
 
-    public function store(Request $request)
+    public function store(DonationRequest $request)
     {
-        //
+        $donation = Donation::create($request->merge(['status' => 'in process', 'gateway_response' => 'Falta construir la api'])->all());
+
+        Mail::send(new DonationConfirmation($donation));
+
+        return redirect()->to('/');
     }
 
     public function show(Donation $donation)
     {
-        return view('admin.donations.show', ['donation' => $donation]);
+        //
     }
 
     public function edit(Donation $donation)

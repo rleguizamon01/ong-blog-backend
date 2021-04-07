@@ -1,5 +1,5 @@
 @component('mail::message')
-Gracias {{$donation->email}} por tu colaboracion.
+Gracias {{$donation->email}} por su colaboracion.
 Hemos recibido su donacion de ${{$donation->amount}}.
 @component('mail::panel')
 Lo invitamos a conocer otros proyectos.

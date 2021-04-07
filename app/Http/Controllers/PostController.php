@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
-use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -69,7 +69,7 @@ class PostController extends Controller
             $query->orderBy('created_at', 'desc');
         }]);
 
-        return view('posts.show', ['post' => $post]);
+        return view('common.posts.show', ['post' => $post]);
     }
 
     /**
