@@ -21,8 +21,9 @@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/css/custom.css">
     <!--Script-->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    {{-- <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script> --}}
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
 <header class="header">
@@ -146,5 +147,6 @@
         </div>
     </div>
 </footer>
+@stack('scripts')
 </body>
 </html>
