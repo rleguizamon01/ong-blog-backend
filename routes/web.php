@@ -28,6 +28,7 @@ Route::get('/home', function () {
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
 Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::class, 'index'])->name('categories.posts.index');
 Route::resource('donations', App\Http\Controllers\DonationController::class);
+Route::get('posts/get-more-posts', [App\Http\Controllers\PostController::class, 'getMorePosts'])->name('get-more-posts');
 Route::resource('posts', App\Http\Controllers\PostController::class);
 Route::resource('posts/{post}/comments', CommentController::class);
 Route::resource('subscribers', App\Http\Controllers\SuscriberController::class);
@@ -38,7 +39,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         'except' => ['create', 'store']
     ]);
 
-    Route::resource('subscribers', App\Http\Controllers\Admin\SuscriberController::class, [
+    Route::resource('subscribers', App\Http\Controllers\Admin\SubscriberController::class, [
         'except' => ['create', 'store']
     ]);
 
