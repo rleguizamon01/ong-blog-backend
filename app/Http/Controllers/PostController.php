@@ -22,13 +22,12 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $query = Post::with('category', 'user')->latest();
+        $categories = Category::withCount('posts')->orderBy('name', 'ASC')->get();
+        $totalposts = Post::count();
 
-        if ($request->has('category_id')) {
-            $query->where('category_id', $request->query('category_id'));
-        }
+        $posts = Post::getPosts($request);
 
-        return view('website.posts.index', ['posts' => $query->paginate(10)]);
+        return view('website.posts.index', ['posts' => $posts, 'categories' => $categories, 'totalposts' => $totalposts]);
     }
 
     /**
@@ -111,5 +110,13 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function getMorePosts(Request $request)
+    {
+        if ($request->ajax()) {
+            $posts = Post::getPosts($request);
+            return view('components.posts.data', ['posts' => $posts])->render();
+        }
     }
 }
