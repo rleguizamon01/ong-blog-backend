@@ -30,4 +30,23 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public static function getPosts($request)
+    {
+        $query = Post::with('category', 'user')->latest();
+
+        if ($request->filled('category_query')) {
+            $query->where('category_id', $request->query('category_query'));
+        }
+
+        $querySearch = $request->query('search_query');
+        if ($request->filled('search_query')) {
+            $query->where(function ($q) use ($querySearch) {
+                $q->where('title', 'like', '%' . $querySearch . '%');
+                // ->orWhere('body', 'like', '%' . $querySearch . '%');  // despues agregarlo recordar sacar ; renglon anterior
+            });
+        }
+
+        return $query->paginate(10);
+    }
 }
