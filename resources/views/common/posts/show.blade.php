@@ -72,5 +72,50 @@
             </div>
         </div>
     </main>
+
+    
+    <script type="text/javascript">
+
+        document.getElementById('submit-comment').addEventListener('click', postComment);
+
+        function postComment(){
+            axios.post('{{ route('comments.store', $post) }}',{
+                email: document.getElementById('email').value,
+                body: document.getElementById('body').value,
+            })
+            .then(function(response){
+                hideAlert('email-error');
+                hideAlert('body-error');
+
+                document.getElementById('email').value = "";
+                document.getElementById('body').value = "";
+            })
+            .catch(function(error){
+                let errors = JSON.parse(error.response.request.response).errors;
+
+                if(errors.email){
+                    showAlert('email-error');
+                    document.getElementById("email-error").innerHTML = errors.email[0];
+                } else{
+                    hideAlert('email-error');
+                }
+
+                if(errors.body){
+                    showAlert('body-error');
+                    document.getElementById("body-error").innerHTML = errors.body[0];
+                } else{
+                    hideAlert('body-error');
+                }
+            });
+        }
+
+        function showAlert(id){
+            document.getElementById(id).classList.remove("d-none");
+        }
+
+        function hideAlert(id){
+            document.getElementById(id).classList.add("d-none");
+        }
+    </script>
 @endsection
 
