@@ -18,9 +18,7 @@ class CommentController extends Controller
      */
     public function index(Post $post)
     {
-        return view('website.comments.index', [
-            'comments' => $post->comments
-        ]);
+        return response()->json($post->comments);
     }
 
     /**
