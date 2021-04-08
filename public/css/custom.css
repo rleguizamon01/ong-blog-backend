@@ -85,3 +85,7 @@ section.board .container {
 .widget.categories .item .active {
     color: #000;
 }
+
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
