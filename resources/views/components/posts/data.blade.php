@@ -11,7 +11,7 @@
                         <!-- Title -->
                         <a href="{{ route('posts.show', $post->id) }}" class="text-decoration-none">
                             <h5 class="card-title"> {{ $post->title }}</h5>
-                            <h5 class="card-title"> {{ $post->id }}</h5>
+                            {{-- <h5 class="card-title"> {{ $post->id }}</h5> --}}
                         </a>
                         <div class="d-flex justify-content-between mt-2 mb-2">
                             <!-- Date -->

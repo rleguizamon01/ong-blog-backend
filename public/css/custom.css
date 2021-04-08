@@ -72,3 +72,16 @@ section.board .container {
 #clearSearch.btn{
         box-shadow: none;
 }
+
+#categories button {
+    box-shadow: none;
+}
+
+.widget.categories button {
+    color: #777;
+    font-weight: 700;
+}
+
+.widget.categories .item .active {
+    color: #000;
+}
