@@ -74,9 +74,40 @@
     </main>
 
     
+    
     <script type="text/javascript">
 
         document.getElementById('submit-comment').addEventListener('click', postComment);
+        document.addEventListener("DOMContentLoaded", getComments());
+
+        function getComments(){
+            axios.get('{{ route('comments.index', $post) }}')
+            .then(function(response){
+                let commentSection = document.getElementById('comment-section');
+                commentSection.innerHTML = "";
+                let fragment = document.createDocumentFragment();
+                let comments = response.data;
+
+                comments.slice().reverse().forEach(function(comment){
+                    let commentDiv = document.createElement("div");
+                    commentDiv.classList.add("comment");
+                    commentDiv.innerHTML = `<div class="comment-header d-flex justify-content-between">` +
+                                        `<div class="user d-flex align-items-center">` +
+                                        `<div class="title strong">` + comment.email + `</div>` +
+                                        `</div>` +
+                                        `</div>` +
+                                        `<div class="comment-body">` +
+                                        `<p>` + comment.body + `</p>` +
+                                        `</div>`;
+                    fragment.appendChild(commentDiv);
+                })
+
+                commentSection.appendChild(fragment);
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        }
 
         function postComment(){
             axios.post('{{ route('comments.store', $post) }}',{
@@ -89,6 +120,8 @@
 
                 document.getElementById('email').value = "";
                 document.getElementById('body').value = "";
+
+                getComments();
             })
             .catch(function(error){
                 let errors = JSON.parse(error.response.request.response).errors;
