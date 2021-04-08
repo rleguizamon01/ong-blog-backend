@@ -46,6 +46,13 @@
     let search = document.getElementById("search");
     search.value = '';
 
+    function Page(event){
+        event.preventDefault();
+        let page = event.target.innerHTML;
+        getMorePosts(page);
+    }
+    document.getElementsByClassName("pagination")[0].addEventListener('click', Page);
+
     function FilterbyCategory(categId,categName){
         currentCategoryId = categId;
         currentCategoryName = categName;
@@ -80,6 +87,7 @@
         })
         .then(function (response) {
             document.getElementById("posts_data").innerHTML=response.data;
+            document.getElementsByClassName("pagination")[0].addEventListener('click', Page);
         })
         .catch(function (error) {
             console.log(error);
