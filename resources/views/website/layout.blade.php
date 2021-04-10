@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/css/custom.css">
+    @stack('dropzone-css')
     <!--Script-->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -146,5 +147,6 @@
         </div>
     </div>
 </footer>
+    @stack('dropzone-js')
 </body>
 </html>
