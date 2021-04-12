@@ -4,6 +4,10 @@
     <h1 >
         Listado de Posts
     </h1>
+    <!-- Success message -->
+    @if(session('success'))
+        <div class="alert alert-success mb-3 small"> {{ session('success') }}</div>
+    @endif
     <div class="table-responsive bg-light">
         <table class="table">
             <thead>
