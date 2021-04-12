@@ -38,7 +38,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         'except' => ['create', 'store']
     ]);
 
-    Route::resource('subscribers', App\Http\Controllers\Admin\SuscriberController::class, [
+    Route::resource('subscribers', App\Http\Controllers\Admin\SubscriberController::class, [
         'except' => ['create', 'store']
     ]);
 
