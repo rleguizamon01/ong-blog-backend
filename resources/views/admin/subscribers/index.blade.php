@@ -44,7 +44,7 @@
             </div>
         </form>
 
-        <form id="delete-all" action="{{route('admin.subscribers.destroyAll')}}" method="POST">
+        <form id="delete-all" action="{{route('admin.subscribers.destroy')}}" method="POST">
             @csrf
             @method('delete')
             <div class="table-responsive bg-light">
