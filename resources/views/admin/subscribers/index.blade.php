@@ -19,7 +19,7 @@
         <h2>
             Listado de Suscriptores
         </h2>
-        <form method='GET' action="{{route('admin.subscribers.filter')}}">
+        <form method='GET' action="{{route('admin.subscribers.index')}}">
             <div class="form-row align-items-end">
                 <div class="form-group col-md-2">
                     <label for="status">Estado:</label>
