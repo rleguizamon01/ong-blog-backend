@@ -43,8 +43,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         'except' => ['create', 'store']
     ]);
 
-    Route::get('subscribers/filter', [\App\Http\Controllers\Admin\SubscriberController::class, 'filter'])->name('subscribers.filter');
-
     Route::delete('subscribers/{subscriber?}', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroy'])->name('subscribers.destroy');
 
 
