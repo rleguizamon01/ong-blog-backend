@@ -68,11 +68,10 @@ class CommentController extends Controller
      * @param \App\Models\Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post, Comment $comment)
+    public function edit(Comment $comment)
     {
         $this->authorize('update-comment', $comment);
         return view('admin.comments.edit', [
-            'post' => $post,
             'comment' => $comment,
         ]);
     }
@@ -84,12 +83,12 @@ class CommentController extends Controller
      * @param \App\Models\Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post, Comment $comment)
+    public function update(CommentRequest $request, Comment $comment)
     {
         $this->authorize('update-comment', $comment);
         $comment->update($request->all());
         $comment->ip = request()->ip();
-        return $comment;
+        return redirect()->back()->withSuccess('Comentario editado exitosamente');
     }
 
     /**
@@ -102,6 +101,6 @@ class CommentController extends Controller
     {
         $this->authorize('delete-comment', $comment);
         $comment->delete();
-        return back();
+        return back()->withSuccess('Comentario eliminado exitosamente');
     }
 }
