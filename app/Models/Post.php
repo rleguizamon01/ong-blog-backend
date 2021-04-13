@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Post extends Model
 {
@@ -29,5 +30,24 @@ class Post extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public static function getPosts(Request $request)
+    {
+        $query = Post::with('category', 'user')->latest();
+
+        if ($request->filled('category_query')) {
+            $query->where('category_id', $request->get('category_query'));
+        }
+
+        $querySearch = $request->get('search_query');
+        if ($request->filled('search_query')) {
+            $query->where(function ($q) use ($querySearch) {
+                $q->where('title', 'like', '%' . $querySearch . '%');
+                // ->orWhere('body', 'like', '%' . $querySearch . '%');  // despues agregarlo recordar sacar ; renglon anterior
+            });
+        }
+
+        return $query->paginate(10);
     }
 }

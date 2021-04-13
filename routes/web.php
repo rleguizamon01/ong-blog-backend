@@ -28,6 +28,7 @@ Route::get('/home', function () {
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
 Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::class, 'index'])->name('categories.posts.index');
 Route::resource('donations', App\Http\Controllers\DonationController::class);
+Route::get('posts/get-more-posts', [App\Http\Controllers\PostController::class, 'getMorePosts'])->name('get-more-posts');
 Route::resource('posts', App\Http\Controllers\PostController::class);
 Route::resource('posts/{post}/comments', CommentController::class);
 Route::post('posts/storeimage', [App\Http\Controllers\PostController::class, 'storeImage'])->name('store.image');
