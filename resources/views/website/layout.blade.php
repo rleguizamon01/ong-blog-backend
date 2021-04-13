@@ -23,6 +23,11 @@
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="stylesheet" href="/css/custom.css">
+@stack('dropzone-css')
+<!--Script-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 <header class="header">
@@ -40,43 +45,57 @@
             <!-- Navbar Menu -->
             <div id="navbarcollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="{{ route('welcome') }}" class="nav-link {{ Route::is('welcome') ? 'active' : '' }}">Inicio</a></li>
-                    <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link {{ Route::is('posts.index') ? 'active' : '' }}">Posts</a></li>
-                    <li class="nav-item"><a href="{{ route('volunteers.create') }}" class="nav-link {{ Route::is('volunteers.create') ? 'active' : '' }}">Voluntariado</a></li>
-                    <li class="nav-item"><a href="{{ route('donations.create') }}" class="nav-link {{ Route::is('donations.create') ? 'active' : '' }}">Donar</a></li>
+                    <li class="nav-item"><a href="{{ route('welcome') }}"
+                                            class="nav-link {{ Route::is('welcome') ? 'active' : '' }}">Inicio</a></li>
+                    <li class="nav-item"><a href="{{ route('posts.index') }}"
+                                            class="nav-link {{ Route::is('posts.index') ? 'active' : '' }}">Posts</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('volunteers.create') }}"
+                                            class="nav-link {{ Route::is('volunteers.create') ? 'active' : '' }}">Voluntariado</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('donations.create') }}"
+                                            class="nav-link {{ Route::is('donations.create') ? 'active' : '' }}">Donar</a>
+                    </li>
                     <!-- Authentication Links -->
                     @guest
-                    @if (Route::has('login'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
-                    </li>
-                    @endif
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
+                            </li>
+                        @endif
 
-                    @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
-                    </li>
-                    @endif
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                            </li>
+                        @endif
                     @else
                         @if (Auth::user()->isAdmin())
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Admin
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item {{ Route::is('admin.posts.index') ? 'active' : '' }}" href=" {{ route('admin.posts.index') }}">Posts</a>
-                                <a class="dropdown-item {{ Route::is('admin.volunteers.index') ? 'active' : '' }}" href=" {{ route('admin.volunteers.index') }}">Voluntarios</a>
-                                <a class="dropdown-item {{ Route::is('admin.comments.index') ? 'active' : '' }}" href=" {{ route('admin.comments.index') }}">Comentarios</a>
-                                <a class="dropdown-item {{ Route::is('admin.categories.index') ? 'active' : '' }}" href=" {{ route('admin.categories.index') }}">Categorías</a>
-                                <a class="dropdown-item {{ Route::is('admin.subscribers.index') ? 'active' : '' }}" href=" {{ route('admin.subscribers.index') }}">Suscriptores</a>
-                                <a class="dropdown-item {{ Route::is('admin.donations.index') ? 'active' : '' }}" href=" {{ route('admin.donations.index') }}">Donaciones</a>
-                            </div>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item {{ Route::is('admin.posts.index') ? 'active' : '' }}"
+                                       href=" {{ route('admin.posts.index') }}">Posts</a>
+                                    <a class="dropdown-item {{ Route::is('admin.volunteers.index') ? 'active' : '' }}"
+                                       href=" {{ route('admin.volunteers.index') }}">Voluntarios</a>
+                                    <a class="dropdown-item {{ Route::is('admin.comments.index') ? 'active' : '' }}"
+                                       href=" {{ route('admin.comments.index') }}">Comentarios</a>
+                                    <a class="dropdown-item {{ Route::is('admin.categories.index') ? 'active' : '' }}"
+                                       href=" {{ route('admin.categories.index') }}">Categorías</a>
+                                    <a class="dropdown-item {{ Route::is('admin.subscribers.index') ? 'active' : '' }}"
+                                       href=" {{ route('admin.subscribers.index') }}">Suscriptores</a>
+                                    <a class="dropdown-item {{ Route::is('admin.donations.index') ? 'active' : '' }}"
+                                       href=" {{ route('admin.donations.index') }}">Donaciones</a>
+                                </div>
+                            </li>
                         @endif
                         <li class="nav-item">
                             <a href="{{ route('logout') }}"
-                                class="nav-link"
-                                onclick="event.preventDefault();
+                               class="nav-link"
+                               onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                 {{ __('Cerrar sesión') }}
                             </a>
@@ -142,5 +161,6 @@
     </div>
 </footer>
 @stack('scripts')
+@stack('dropzone-js')
 </body>
 </html>

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="d-flex justify-content-center my-2">
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-xl-8">
-            <form method='POST' action="{{ route('posts.store') }}" enctype="multipart/form-data">
+            <form id="post-form" method='POST' action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
                 <div class="form-group m-4">
                     <label for="category_id">Categoria</label>
@@ -34,16 +34,26 @@
                         <small id="bodyError" class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <div class="form-group m-4">
-                    <label for="photo">Imagen</label>
-                    <input type="file" name="photo" id="photo" class="form-control @error('photo') border-danger @enderror" aria-describedby="photoError" accept=".jpg,.png,.jpeg,.bmp,.gif">
-                    @error('photo')
-                        <small id="photoError" class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
+            <form action="{{ route('store.image') }}"
+                method="POST"
+                class="dropzone"
+                id="my-awesome-dropzone"></form>
+            <button type="submit" class="btn btn-primary" form="post-form">Enviar</button>
         </div>
     </div>
 </div>
 @endsection
+@push('dropzone-css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.css" integrity="sha512-7uSoC3grlnRktCWoO4LjHMjotq8gf9XDFQerPuaph+cqR7JC9XKGdvN+UwZMC14aAaBDItdRj3DcSDs4kMWUgg==" crossorigin="anonymous" />
+@endpush
+@push('dropzone-js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js" integrity="sha512-VQQXLthlZQO00P+uEu4mJ4G4OAgqTtKG1hri56kQY1DtdLeIqhKUp9W/lllDDu3uN3SnUNawpW7lBda8+dSi7w==" crossorigin="anonymous"></script>
+<script>
+    Dropzone.options.myAwesomeDropzone = {
+  headers:{
+      'X-CSRF-TOKEN' :  "{{csrf_token()}}"
+  },
+};
+</script>
+@endpush
