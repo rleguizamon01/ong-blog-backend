@@ -1,9 +1,9 @@
 @extends('admin.layout')
 @section('content')
 <div class="m-4">
-    <h1 >
+    <h2>
         Listado de Posts
-    </h1>
+    </h2>
     <!-- Success message -->
     @if(session('success'))
         <div class="alert alert-success mb-3 small"> {{ session('success') }}</div>

@@ -2,9 +2,11 @@
 
 @section('content')
     <div class="m-4">
+        <header>
         <h2>
             Listado de Comentarios
         </h2>
+        </header>
         <div class="table-responsive bg-light">
             <table class="table">
                 <thead>
