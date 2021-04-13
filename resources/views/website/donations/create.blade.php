@@ -4,15 +4,16 @@
 
 @section('content')
     <div class="container">
-        <!-- Success message -->
-        @if(session('success'))
-            <div class="row justify-content-center mt-3">
-                <div class="alert alert-success mb-0"> {{ session('success') }}</div>
+        <div class="m-4">
+            <div class="mb-3">
+                <h3>Realizar donación</h3>
             </div>
-        @endif
+            <!-- Success message -->
+            @if(session('success'))
+                    <div class="alert alert-success mb-3 small"> {{ session('success') }}</div>
+            @endif
 
-        <div class="row col-12 justify-content-center mt-4 ml-2 mr-2 mb-5">
-            <form class="col-xs-12 col-sm-10 col-md-8 col-lg-6 mt-4 " action="{{ route('donations.store') }}" method="POST">
+            <form action="{{ route('donations.store') }}" method="POST">
                 @csrf
 
                 <!-- Email -->
