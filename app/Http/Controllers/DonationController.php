@@ -18,7 +18,6 @@ class DonationController extends Controller
 
     public function index(DonationFilterRequest $request)
     {
-        //
     }
 
     public function create()
@@ -32,7 +31,7 @@ class DonationController extends Controller
 
         Mail::send(new DonationConfirmation($donation));
 
-        return redirect()->to('/');
+        return redirect()->back()->withSuccess('Donación realizada exitosamente');
     }
 
     public function show(Donation $donation)

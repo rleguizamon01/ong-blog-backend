@@ -5,6 +5,12 @@
         <h2>
             Listado de Comentarios
         </h2>
+
+        <!-- Success message -->
+        @if(session('success'))
+            <div class="alert alert-success mb-3 small"> {{ session('success') }}</div>
+        @endif
+
         <div class="table-responsive bg-light">
             <table class="table">
                 <thead>
@@ -30,7 +36,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{route('admin.comments.edit', ['post' => $comment->post_id,'comment'=>$comment])}}">
+                            <a href="{{route('admin.comments.edit', $comment) }}">
                                 <i class="btn btn-primary fas fa-edit" aria-hidden="true"></i>
                             </a>
                             <form class="d-inline-flex" action="{{route('admin.comments.destroy', ['post'=>$comment->post_id, 'comment'=>$comment])}}" method="POST">

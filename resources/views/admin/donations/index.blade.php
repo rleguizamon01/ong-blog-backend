@@ -1,8 +1,8 @@
 @extends('admin.layout')
 @section('title', 'Donaciones')
 @section('content')
-    <div class="my-4">
-        <h5>Donaciones</h5>
+    <div class="m-4">
+        <h2>Listado de Donaciones</h2>
 
         <form method='GET' action="{{ route('admin.donations.index') }}">
             <div class="row">
@@ -55,7 +55,6 @@
             </div>
 
         </form>
-    </div>
 
     <!-- Donors table -->
     <div class="table-responsive bg-light mt-2">
@@ -92,5 +91,6 @@
     </div>
 
     <!-- Pagination buttons -->
-    <p>{{ $donations->links() }}</p>
+        <p>{{ $donations->links() }}</p>
+    </div>
 @endsection

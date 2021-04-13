@@ -8,21 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }} ">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
           integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <!-- Custom icon font-->
-    <link rel="stylesheet" href="/css/fontastic.css">
+    <link rel="stylesheet" href="{{ asset('css/fontastic.css') }}">
     <!-- Google fonts - Open Sans-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.default.css') }}" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!--Script-->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 </head>
 <body>
 <header class="header">
@@ -40,55 +40,50 @@
             <!-- Navbar Menu -->
             <div id="navbarcollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="/" class="nav-link active ">Inicio</a></li>
-                    <li class="nav-item"><a href="/posts" class="nav-link ">Posts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            href="{{ route('donations.create') }}"
-                            class="nav-link {{ Route::is('donations.create') ? 'active' : '' }}">
-                            Donar
-                        </a>
-                    </li>
+                    <li class="nav-item"><a href="{{ route('welcome') }}" class="nav-link {{ Route::is('welcome') ? 'active' : '' }}">Inicio</a></li>
+                    <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link {{ Route::is('posts.index') ? 'active' : '' }}">Posts</a></li>
+                    <li class="nav-item"><a href="{{ route('volunteers.create') }}" class="nav-link {{ Route::is('volunteers.create') ? 'active' : '' }}">Voluntariado</a></li>
+                    <li class="nav-item"><a href="{{ route('donations.create') }}" class="nav-link {{ Route::is('donations.create') ? 'active' : '' }}">Donar</a></li>
                     <!-- Authentication Links -->
                     @guest
                     @if (Route::has('login'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                     </li>
                     @endif
 
                     @if (Route::has('register'))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
                     </li>
                     @endif
                     @else
-                        @if (Auth::user()->isCollaborator() || Auth::user()->isAdmin())
-                        <li class="nav-item"><a href="/volunteers" class="nav-link ">Voluntarios</a>
+                        @if (Auth::user()->isAdmin())
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item {{ Route::is('admin.posts.index') ? 'active' : '' }}" href=" {{ route('admin.posts.index') }}">Posts</a>
+                                <a class="dropdown-item {{ Route::is('admin.volunteers.index') ? 'active' : '' }}" href=" {{ route('admin.volunteers.index') }}">Voluntarios</a>
+                                <a class="dropdown-item {{ Route::is('admin.comments.index') ? 'active' : '' }}" href=" {{ route('admin.comments.index') }}">Comentarios</a>
+                                <a class="dropdown-item {{ Route::is('admin.categories.index') ? 'active' : '' }}" href=" {{ route('admin.categories.index') }}">Categorías</a>
+                                <a class="dropdown-item {{ Route::is('admin.subscribers.index') ? 'active' : '' }}" href=" {{ route('admin.subscribers.index') }}">Suscriptores</a>
+                                <a class="dropdown-item {{ Route::is('admin.donations.index') ? 'active' : '' }}" href=" {{ route('admin.donations.index') }}">Donaciones</a>
+                            </div>
                         </li>
                         @endif
-                        @if (Auth::user()->isAdmin())
-                            <li class="nav-item"><a href="{{ route('admin.posts.index') }}" class="nav-link">Admin</a>
-                            </li>
-                        @endif
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}"
+                                class="nav-link"
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                {{ __('Cerrar sesión') }}
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         </li>
                     @endguest
                 </ul>

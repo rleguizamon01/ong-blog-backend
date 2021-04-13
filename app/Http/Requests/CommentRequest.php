@@ -25,7 +25,14 @@ class CommentRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'body' => 'required|min:1|max:500'
+            'body' => 'required|max:500'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'body' => 'comentario',
         ];
     }
     public function messages()

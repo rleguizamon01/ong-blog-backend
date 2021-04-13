@@ -87,9 +87,10 @@ class SubscriberController extends Controller
      */
     public function destroy(Subscriber $subscriber, Request $request)
     {
-        if ($request->boolean('all')) {
-            DB::table('subscribers')->truncate();
-        } else {
+        $subs = $request->input('id');
+        if (is_array($subs)){
+            Subscriber::destroy($subs);
+        }else {
             $subscriber->delete();
         }
 

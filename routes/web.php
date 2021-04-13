@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('website.welcome');
-});
+})->name('welcome');
 
 
 Auth::routes();
@@ -30,6 +30,7 @@ Route::get('categories/{category}/posts', [App\Http\Controllers\PostController::
 Route::resource('donations', App\Http\Controllers\DonationController::class);
 Route::resource('posts', App\Http\Controllers\PostController::class);
 Route::resource('posts/{post}/comments', CommentController::class);
+Route::post('posts/storeimage', [App\Http\Controllers\PostController::class, 'storeImage'])->name('store.image');
 Route::resource('subscribers', App\Http\Controllers\SuscriberController::class);
 Route::resource('volunteers', App\Http\Controllers\VolunteerController::class);
 
@@ -38,13 +39,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         'except' => ['create', 'store']
     ]);
 
-    Route::resource('subscribers', App\Http\Controllers\Admin\SuscriberController::class, [
+    Route::resource('subscribers', App\Http\Controllers\Admin\SubscriberController::class, [
         'except' => ['create', 'store']
     ]);
 
-    Route::get('subscribers/filter', [\App\Http\Controllers\Admin\SubscriberController::class, 'filter'])->name('subscribers.filter');
-
-    Route::delete('subscribers/{subscriber}', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroy'])->name('subscribers.destroyAll');
+    Route::delete('subscribers/{subscriber?}', [\App\Http\Controllers\Admin\SubscriberController::class, 'destroy'])->name('subscribers.destroy');
 
 
 
