@@ -27,7 +27,9 @@ class PostController extends Controller
         if ($request->has('category_id')) {
             $query->where('category_id', $request->query('category_id'));
         }
-
+        if($request->ajax()) {
+            return view('website.posts.index', ['posts' => $query->paginate(10)])->render();
+        }
         return view('website.posts.index', ['posts' => $query->paginate(10)]);
     }
 
