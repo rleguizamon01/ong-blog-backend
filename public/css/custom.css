@@ -68,3 +68,24 @@ section.board .container {
         font-size: 0.75em;
     }
 }
+
+#clearSearch.btn{
+        box-shadow: none;
+}
+
+#categories button {
+    box-shadow: none;
+}
+
+.widget.categories button {
+    color: #777;
+    font-weight: 700;
+}
+
+.widget.categories .item .active {
+    color: #000;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
