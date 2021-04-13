@@ -3,7 +3,7 @@
 @section('title', 'Donaciones')
 
 @section('content')
-    <div class="container">
+    <div class="container alturaMinima">
         <div class="m-4">
             <div class="mb-3">
                 <h3>Realizar donación</h3>
