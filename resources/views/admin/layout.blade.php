@@ -40,19 +40,34 @@
           <!-- Navbar Menu -->
           <div id="navbarcollapse" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href="/" class="nav-link {{(Request::path()==='/') ? 'active' : ''}}">Inicio</a>
+              <li class="nav-item"><a href="{{ route('welcome') }}" class="nav-link {{ Route::is('welcome') ? 'active' : '' }}">Inicio</a></li>
+              <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link {{ Route::is('posts.index') ? 'active' : '' }}">Posts</a></li>
+              <li class="nav-item"><a href="{{ route('volunteers.create') }}" class="nav-link {{ Route::is('volunteers.create') ? 'active' : '' }}">Voluntariado</a></li>
+              <li class="nav-item"><a href="{{ route('donations.create') }}" class="nav-link {{ Route::is('donations.create') ? 'active' : '' }}">Donar</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item {{ Route::is('admin.posts.index') ? 'active' : '' }}" href=" {{ route('admin.posts.index') }}">Posts</a>
+                    <a class="dropdown-item {{ Route::is('admin.volunteers.index') ? 'active' : '' }}" href=" {{ route('admin.volunteers.index') }}">Voluntarios</a>
+                    <a class="dropdown-item {{ Route::is('admin.comments.index') ? 'active' : '' }}" href=" {{ route('admin.comments.index') }}">Comentarios</a>
+                    <a class="dropdown-item {{ Route::is('admin.categories.index') ? 'active' : '' }}" href=" {{ route('admin.categories.index') }}">Categorías</a>
+                    <a class="dropdown-item {{ Route::is('admin.subscribers.index') ? 'active' : '' }}" href=" {{ route('admin.subscribers.index') }}">Suscriptores</a>
+                    <a class="dropdown-item {{ Route::is('admin.donations.index') ? 'active' : '' }}" href=" {{ route('admin.donations.index') }}">Donaciones</a>
+                </div>
               </li>
-              <li class="nav-item"><a href="{{ route('admin.posts.index') }}" class="nav-link {{(Request::path()==='admin/posts') ? 'active' : ''}}">Posts</a>
-              </li>
-              <li class="nav-item"><a href="{{ route('admin.categories.index') }}" class="nav-link {{(Request::path()==='admin/categories') ? 'active' : ''}}">Categorias</a>
-              </li>
-              <li class="nav-item"><a href="{{ route('admin.comments.index') }}" class="nav-link {{(Request::path()==='admin/comments') ? 'active' : ''}}">Comentarios</a>
-              </li>
-              <li class="nav-item"><a href="{{ route('admin.volunteers.index') }}" class="nav-link {{(Request::path()==='admin/volunteers') ? 'active' : ''}}">Voluntarios</a>
-              </li>
-              <li class="nav-item"><a href="{{ route('admin.donations.index') }}" class="nav-link {{(Request::path()==='admin/donations') ? 'active' : ''}}">Donaciones</a>
-              </li>
-              <li class="nav-item"><a href="{{ route('admin.subscribers.index') }}" class="nav-link {{(Request::path()==='admin/subscribers') ? 'active' : ''}}">Suscriptores</a>
+              <li class="nav-item">
+                <a href="{{ route('logout') }}"
+                    class="nav-link"
+                    onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">
+                    {{ __('Cerrar sesión') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
               </li>
             </ul>
           </div>

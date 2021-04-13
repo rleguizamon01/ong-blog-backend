@@ -12,12 +12,12 @@ class VolunteerPolicy
 
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     public function view(User $user, Volunteer $volunteer)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     public function create(?User $user)
