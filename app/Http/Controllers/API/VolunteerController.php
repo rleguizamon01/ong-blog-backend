@@ -10,7 +10,7 @@ class VolunteerController extends Controller
 {
     public function index(Request $request)
     {
-        $volunteers = Volunteer::getPosts($request)->toJson();
+        $volunteers = Volunteer::all()->toJson();
 
         return response($volunteers,200);
     }
