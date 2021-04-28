@@ -20,4 +20,16 @@ class Volunteer extends Model
         'status',
         'reviewed_at'
     ];
+
+    public function scopeByStatus($query, $status)
+    {
+        switch ($status) {
+            case 'all':
+                return $query->withTrashed();
+            case 'delete':
+                return $query->onlyTrashed();
+            case 'active':
+                return $query->whereNull('deleted_at');
+        }
+    }
 }
