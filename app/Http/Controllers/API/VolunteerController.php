@@ -10,7 +10,7 @@ class VolunteerController extends Controller
 {
     public function index(Request $request)
     {
-        $volunteers = Volunteer::all()->toJson();
+        $volunteers = Volunteer::byStatus($request->get('status'))->paginate(10)->toJson();
 
         return response($volunteers,200);
     }
