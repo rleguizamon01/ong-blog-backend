@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::delete('posts/destroy/{id}', [\App\Http\Controllers\API\PostController::class, 'destroyforever']);
 Route::apiResource('posts', App\Http\Controllers\API\PostController::class);
+
+Route::apiResource('categories', App\Http\Controllers\API\CategoryController::class);
