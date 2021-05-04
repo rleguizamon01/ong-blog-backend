@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::withCount('posts')->orderBy('name', 'ASC')->paginate(10);
-        return view('admin.categories.index', ['categories' => $categories]);
+        $categories = Category::with('posts')->orderBy('name', 'ASC')->get();
+        return response()->json($categories);
     }
 
     /**
@@ -40,7 +39,9 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->all());
-        return redirect()->back()->withSuccess('Categoría creada exitosamente');
+        return response()->json([
+            'data' => 'Categoría creada'
+        ]);
     }
 
     /**
@@ -51,7 +52,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('admin.categories.show', ['category' => $category]);
+        return response()->json($category);
     }
 
     /**
@@ -75,7 +76,10 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
-        return redirect()->back()->withSuccess('Categoría editada exitosamente');
+
+        return response()->json([
+            'data' => 'Categoría editada'
+        ]);
     }
 
     /**
@@ -90,6 +94,8 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->back()->withSuccess('Categoría '. $category->name . ' eliminada exitosamente');
+        return response()->json([
+            'data' => 'Categoría eliminada'
+        ]);
     }
 }
