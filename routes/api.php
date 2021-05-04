@@ -24,3 +24,4 @@ Route::apiResource('posts', App\Http\Controllers\API\PostController::class);
 Route::apiResource('categories', App\Http\Controllers\API\CategoryController::class);
 Route::get('users', [\App\Http\Controllers\API\UserController::class,'index']);
 Route::delete('users/{user}', [\App\Http\Controllers\API\UserController::class,'destroy']);
+Route::apiResource('volunteers', App\Http\Controllers\API\VolunteerController::class);
