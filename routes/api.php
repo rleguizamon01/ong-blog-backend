@@ -18,4 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('posts', App\Http\Controllers\API\PostController::class)->only(['index','show']);
+Route::delete('posts/destroy/{id}', [\App\Http\Controllers\API\PostController::class, 'destroyforever']);
+Route::apiResource('posts', App\Http\Controllers\API\PostController::class);
+
+Route::apiResource('categories', App\Http\Controllers\API\CategoryController::class);
