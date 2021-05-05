@@ -22,3 +22,5 @@ Route::delete('posts/destroy/{id}', [\App\Http\Controllers\API\PostController::c
 Route::apiResource('posts', App\Http\Controllers\API\PostController::class);
 
 Route::apiResource('categories', App\Http\Controllers\API\CategoryController::class);
+Route::post('register', [\App\Http\Controllers\API\UserController::class, 'register']);
+Route::post('login', [\App\Http\Controllers\API\UserController::class, 'login']);
