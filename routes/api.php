@@ -27,3 +27,5 @@ Route::apiResource('categories', App\Http\Controllers\API\CategoryController::cl
 Route::get('users', [\App\Http\Controllers\API\UserController::class,'index']);
 Route::delete('users/{user}', [\App\Http\Controllers\API\UserController::class,'destroy']);
 Route::apiResource('volunteers', App\Http\Controllers\API\VolunteerController::class);
+Route::post('register', [\App\Http\Controllers\API\UserController::class, 'register']);
+Route::post('login', [\App\Http\Controllers\API\UserController::class, 'login']);
