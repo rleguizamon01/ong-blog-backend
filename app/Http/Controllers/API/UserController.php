@@ -18,6 +18,12 @@ class UserController extends Controller
     }
     public function register(Request $request)
     {
+        $request->validate([
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|unique:users|min:8|max:50',
+        ]);
         return User::create([
             'role' => User::ROLE_COLLABORATOR,
             'first_name' => $request['first_name'],
