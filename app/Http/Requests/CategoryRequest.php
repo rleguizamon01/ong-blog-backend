@@ -13,7 +13,7 @@ class CategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return true;
     }
 
     /**

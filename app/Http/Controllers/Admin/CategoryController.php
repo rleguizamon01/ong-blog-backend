@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,18 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('posts')->orderBy('name', 'ASC')->get();
+        $categories = Category::withCount('posts')->orderBy('name', 'ASC')->paginate(5);
         return response()->json($categories);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.categories.create');
     }
 
     /**
@@ -56,17 +47,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        return view('admin.categories.edit', ['category' => $category]);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -90,7 +70,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        Post::where('category_id', $category->id)->delete();
+        $posts = Post::where('category_id', $category->id)->delete();
 
         $category->delete();
 
