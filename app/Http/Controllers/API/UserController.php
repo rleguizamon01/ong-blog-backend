@@ -39,7 +39,7 @@ class UserController extends Controller
         if ($user && Hash::check($request['password'],$user->password)){
             return $user;
         }else {
-            return ["error"=>"Email y/o clave incorrectos"];
+            return ["error"=>"Email y/o clave son incorrectos"];
         }
     }
 }
