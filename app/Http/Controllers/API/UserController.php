@@ -24,22 +24,42 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|string|unique:users|min:8|max:50',
         ]);
-        return User::create([
+        $user = User::create([
             'role' => User::ROLE_COLLABORATOR,
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
+        $token = $user->createToken('myblogapptoken')->plainTextToken;
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+        return response($response,201);
+        // return $user;
     }
 
     public function login(Request $request)
     {
         $user = User::where('email',$request['email'])->first();
         if ($user && Hash::check($request['password'],$user->password)){
-            return $user;
+            $token = $user->createToken('myblogapptoken')->plainTextToken;
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
+            return response($response,201);
+
+            // return $user;
         }else {
-            return ["error"=>"Email y/o clave incorrectos"];
+            return response(["error"=>"Email y/o clave incorrectos"],401);
         }
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+        return ['message' => 'Logged out' ];
     }
 }
